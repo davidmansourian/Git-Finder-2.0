@@ -18,9 +18,11 @@ extension HTTPDataDownloading {
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        if let json = String(data: data, encoding: .utf8) {
-            print(json)
-        }
+        
+        // Debug
+//        if let json = String(data: data, encoding: .utf8) {
+//            print(json)
+//        }
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw CustomApiError.badServerResponse
