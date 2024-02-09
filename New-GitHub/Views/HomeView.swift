@@ -22,7 +22,7 @@ struct HomeView: View {
         NavigationStack {
             if let users = userResults?.users {
                 List(users) { user in
-                    ResultItemView(user: user)
+                    ProfileResultItemView(user: user)
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)

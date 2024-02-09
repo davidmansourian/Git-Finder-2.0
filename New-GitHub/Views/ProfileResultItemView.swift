@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResultItemView: View {
+struct ProfileResultItemView: View {
     let user: User
     var body: some View {
         HStack {
@@ -29,5 +29,5 @@ struct ResultItemView: View {
 
 #Preview {
     let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "")
-    return ResultItemView(user: fakeUser)
+    return ProfileResultItemView(user: fakeUser)
 }

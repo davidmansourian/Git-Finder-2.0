@@ -7,8 +7,12 @@
 
 import Foundation
 
+protocol ApiServing {
+    func fetchUsernames(for searchTerm: String) async throws -> UserSearchResult
+}
+
 @Observable
-public final class ApiService: HTTPDataDownloading {
+public final class ApiService: HTTPDataDownloading, ApiServing {
     
     // https://api.github.com/users?q=SEARCHTERM
     public func fetchUsernames(for searchTerm: String) async throws -> UserSearchResult {
