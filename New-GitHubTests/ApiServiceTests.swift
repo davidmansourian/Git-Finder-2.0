@@ -6,30 +6,109 @@
 //
 
 import XCTest
+@testable import New_GitHub
 
 final class ApiServiceTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testFetch_fetchUserResults_resultsCountIsNine() async throws {
+        let sut = MockApiService()
+        sut.mockData = mockSearch_userResultsData
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+            XCTAssertEqual(results.resultsCount, 9)
+        } catch {
+            XCTFail("Incorrect resultCount")
         }
     }
-
+    
+    func testFetch_fetchUserResults_usersHasNineItems() async throws {
+        let sut = MockApiService()
+        sut.mockData = mockSearch_userResultsData
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+            XCTAssertEqual(results.users.count, 9)
+        } catch {
+            XCTFail("Incorrect users count")
+        }
+    }
+    
+    func testFetch_withInvalidData_customErrorThrown() async throws {
+        let sut = MockApiService()
+        sut.mockData = mockSearch_invalidData
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+        } catch {
+            XCTAssertEqual("The data couldn’t be read because it is missing.", error.localizedDescription)
+        }
+    }
+    
+    func testFetch_testErrorThrown_badURLError() async throws {
+        let sut = MockApiService()
+        sut.mockError = .badURL
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+        } catch {
+            if let error = error as? CustomApiError {
+                XCTAssertEqual(error.customDescription, CustomApiError.badURL.customDescription)
+            }
+        }
+    }
+    
+    func testFetch_testErrorThrown_badServerResponse() async throws {
+        let sut = MockApiService()
+        sut.mockError = .badServerResponse
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+        } catch {
+            if let error = error as? CustomApiError {
+                XCTAssertEqual(error.customDescription, CustomApiError.badServerResponse.customDescription)
+            }
+        }
+    }
+    
+    func testFetch_testErrorThrown_invalidStatusCode() async throws {
+        let sut = MockApiService()
+        sut.mockError = .invalidStatusCode(404)
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+        } catch {
+            if let error = error as? CustomApiError {
+                XCTAssertEqual(error.customDescription, CustomApiError.invalidStatusCode(404).customDescription)
+            }
+        }
+    }
+    
+    func testFetch_testErrorThrown_parsingError() async throws {
+        let sut = MockApiService()
+        sut.mockError = .parsingError("Couldn't parse")
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+        } catch {
+            if let error = error as? CustomApiError {
+                XCTAssertEqual(error.customDescription, CustomApiError.parsingError("Couldn't parse").customDescription)
+            }
+        }
+    }
+    
+    func testFetch_testErrorThrown_unknownError() async throws {
+        let sut = MockApiService()
+        sut.mockError = .unknownError("Unknown")
+        
+        do {
+            let results = try await sut.fetchUsernames(for: "apple")
+        } catch {
+            if let error = error as? CustomApiError {
+                XCTAssertEqual(error.customDescription, CustomApiError.unknownError("Unknown").customDescription)
+            }
+        }
+    }
+    
+    
 }

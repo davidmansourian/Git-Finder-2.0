@@ -11,13 +11,11 @@ struct ProfileResultItemView: View {
     let user: User
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: user.avatarUrl)) { image in
-                image
+            if let image = UIImage(data: user.avatarImageData) {
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: 32, height: 32)
                     .clipShape(Circle())
-            } placeholder: {
-                ProgressView()
             }
             
             Text(user.username)
@@ -27,7 +25,21 @@ struct ProfileResultItemView: View {
     }
 }
 
+extension ProfileResultItemView {
+    private var avatarImage: some View {
+        AsyncImage(url: URL(string: user.avatarUrl)) { image in
+            image
+                .resizable()
+                .frame(width: 32, height: 32)
+                .clipShape(Circle())
+        } placeholder: {
+            ProgressView()
+                .frame(width: 32, height: 32)
+        }
+    }
+}
+
 #Preview {
-    let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "")
+    let fakeUser = User(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "", avatarImageData: Data())
     return ProfileResultItemView(user: fakeUser)
 }
