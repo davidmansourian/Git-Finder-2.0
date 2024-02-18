@@ -23,7 +23,7 @@ struct SearchView: View {
         NavigationStack {
             switch viewModel.viewState {
             case .idle:
-                // Search history
+                /// Search history
                 usersList([])
             case .loading:
                 loadingList
