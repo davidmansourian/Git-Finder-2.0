@@ -20,6 +20,4 @@ class MockApiService: ApiServing {
     func fetchDataType(for urlString: String) async throws -> Data {
         return Data()
     }
-    
-    
 }

@@ -12,10 +12,10 @@
 		DB25BC882B73F6C90039A4ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB25BC872B73F6C90039A4ED /* Assets.xcassets */; };
 		DB25BC8B2B73F6C90039A4ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB25BC8A2B73F6C90039A4ED /* Preview Assets.xcassets */; };
 		DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB25BC932B73F6E10039A4ED /* ApiService.swift */; };
-		DBDC95D42B80B74400ACDB0F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D32B80B74400ACDB0F /* SearchViewModel.swift */; };
-		DBDC95D62B80D75700ACDB0F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D52B80D75700ACDB0F /* User.swift */; };
+		DBDC95D42B80B74400ACDB0F /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */; };
 		DBDC95D92B80E05A00ACDB0F /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */; };
 		DBDC95DB2B80E1B100ACDB0F /* LoadingProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */; };
+		DBE75CE32B8206BA00B998E8 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */; };
 		DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */; };
 		DBEEBB3F2B763C1500165EDC /* HTTPDataDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */; };
 		DBEEBB422B763D7700165EDC /* UserSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB412B763D7700165EDC /* UserSearchResult.swift */; };
@@ -43,10 +43,10 @@
 		DB25BC872B73F6C90039A4ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB25BC8A2B73F6C90039A4ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB25BC932B73F6E10039A4ED /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
-		DBDC95D32B80B74400ACDB0F /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		DBDC95D52B80D75700ACDB0F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
 		DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProfilesView.swift; sourceTree = "<group>"; };
+		DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomApiError.swift; sourceTree = "<group>"; };
 		DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataDownloading.swift; sourceTree = "<group>"; };
 		DBEEBB412B763D7700165EDC /* UserSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResult.swift; sourceTree = "<group>"; };
@@ -127,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				DBEEBB412B763D7700165EDC /* UserSearchResult.swift */,
-				DBDC95D52B80D75700ACDB0F /* User.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -135,17 +134,19 @@
 		DBDC95D22B80B71200ACDB0F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				DBDC95D32B80B74400ACDB0F /* SearchViewModel.swift */,
+				DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		DBDC95D72B80E04E00ACDB0F /* Reusables */ = {
+		DBE75CE42B8221F600B998E8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */,
+				DB25BC852B73F6C70039A4ED /* SearchView.swift */,
+				DBEEBB492B76573C00165EDC /* ProfileResultItemView.swift */,
+				DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */,
 			);
-			path = Reusables;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		DBEEBB402B763C2E00165EDC /* API */ = {
@@ -162,10 +163,8 @@
 		DBEEBB462B7656FB00165EDC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DBDC95D72B80E04E00ACDB0F /* Reusables */,
-				DB25BC852B73F6C70039A4ED /* SearchView.swift */,
-				DBEEBB492B76573C00165EDC /* ProfileResultItemView.swift */,
-				DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */,
+				DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */,
+				DBE75CE42B8221F600B998E8 /* Search */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -174,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				DBEEBB5A2B7681DF00165EDC /* ApiServiceTests.swift */,
+				DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */,
 				DBEEBB5E2B7682A900165EDC /* MockJSONData.swift */,
 			);
 			path = "New-GitHubTests";
@@ -279,7 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBDC95D42B80B74400ACDB0F /* SearchViewModel.swift in Sources */,
+				DBDC95D42B80B74400ACDB0F /* SearchView-ViewModel.swift in Sources */,
 				DBDC95D92B80E05A00ACDB0F /* Shimmer.swift in Sources */,
 				DB25BC862B73F6C70039A4ED /* SearchView.swift in Sources */,
 				DB25BC842B73F6C70039A4ED /* New_GitHubApp.swift in Sources */,
@@ -291,7 +291,6 @@
 				DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */,
 				DBEEBB4A2B76573C00165EDC /* ProfileResultItemView.swift in Sources */,
 				DBDC95DB2B80E1B100ACDB0F /* LoadingProfilesView.swift in Sources */,
-				DBDC95D62B80D75700ACDB0F /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +300,7 @@
 			files = (
 				DBEEBB602B7682A900165EDC /* MockJSONData.swift in Sources */,
 				DBEEBB5B2B7681DF00165EDC /* ApiServiceTests.swift in Sources */,
+				DBE75CE32B8206BA00B998E8 /* SearchViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

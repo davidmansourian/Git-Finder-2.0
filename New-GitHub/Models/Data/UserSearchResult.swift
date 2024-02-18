@@ -10,7 +10,7 @@ import Foundation
 public struct UserSearchResult: Codable, Equatable {
     let resultsCount: Int
     let incompleteResults: Bool
-    let users: [UserItem]
+    let users: [User]
     
     enum CodingKeys: String, CodingKey {
         case resultsCount = "total_count"
@@ -19,11 +19,12 @@ public struct UserSearchResult: Codable, Equatable {
     }
 }
 
-public struct UserItem: Codable, Identifiable, Hashable, Equatable {
+public struct User: Codable, Identifiable, Hashable, Equatable {
     public let id: Int?
     let username: String
     let avatarUrl: String
     let reposUrl: String
+    var avatarImageData: Data?
     
     enum CodingKeys: String, CodingKey {
         case username = "login"

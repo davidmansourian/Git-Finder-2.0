@@ -11,7 +11,8 @@ struct ProfileResultItemView: View {
     let user: User
     var body: some View {
         HStack {
-            if let image = UIImage(data: user.avatarImageData) {
+            if let imageData = user.avatarImageData,
+               let image = UIImage(data: imageData) {
                 Image(uiImage: image)
                     .resizable()
                     .frame(width: 32, height: 32)
@@ -40,6 +41,6 @@ extension ProfileResultItemView {
 }
 
 #Preview {
-    let fakeUser = User(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "", avatarImageData: Data())
+    let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "", avatarImageData: Data())
     return ProfileResultItemView(user: fakeUser)
 }

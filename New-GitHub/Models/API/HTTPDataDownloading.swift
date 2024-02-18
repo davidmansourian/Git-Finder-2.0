@@ -20,9 +20,7 @@ extension HTTPDataDownloading {
         
         let (data, response) = try await URLSession.shared.data(from: url)
         
-//        if let json = String(data: data, encoding: .utf8) {
-//            print(json)
-//        }
+        //print(String(data: data, encoding: .utf8))
         
         try validateResponse(response)
         
@@ -41,6 +39,7 @@ extension HTTPDataDownloading {
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
+            
             try validateResponse(response)
             
             return data

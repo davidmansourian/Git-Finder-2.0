@@ -23,10 +23,14 @@ struct SearchView: View {
         NavigationStack {
             switch viewModel.viewState {
             case .idle:
-                usersList
+                // Search history
+                usersList([])
             case .loading:
                 loadingList
+            case .loaded(let users):
+                usersList(users)
             case .error(let error):
+                // Make error screen better
                 Text(error)
             }
         }
@@ -42,18 +46,12 @@ struct SearchView: View {
 }
 
 extension SearchView {
-    private var usersList: some View {
-        Group {
-            if let users = viewModel.users {
-                List(users, id: \.username) { user in
-                    ProfileResultItemView(user: user)
-                        .listRowSeparator(.hidden)
-                }
-                .listStyle(.plain)
-            } else {
-                // Show search history
-            }
+    private func usersList(_ users: [User]) -> some View {
+        List(users, id: \.username) { user in
+            ProfileResultItemView(user: user)
+                .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
     }
     
     private var loadingList: some View {

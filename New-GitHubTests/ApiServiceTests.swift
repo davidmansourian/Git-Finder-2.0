@@ -15,7 +15,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockData = mockSearch_userResultsData
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
             XCTAssertEqual(results.resultsCount, 9)
         } catch {
             XCTFail("Incorrect resultCount")
@@ -27,7 +27,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockData = mockSearch_userResultsData
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
             XCTAssertEqual(results.users.count, 9)
         } catch {
             XCTFail("Incorrect users count")
@@ -39,7 +39,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockData = mockSearch_invalidData
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
         } catch {
             XCTAssertEqual("The data couldn’t be read because it is missing.", error.localizedDescription)
         }
@@ -50,7 +50,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .badURL
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.badURL.customDescription)
@@ -63,7 +63,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .badServerResponse
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.badServerResponse.customDescription)
@@ -76,7 +76,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .invalidStatusCode(404)
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.invalidStatusCode(404).customDescription)
@@ -89,7 +89,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .parsingError("Couldn't parse")
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.parsingError("Couldn't parse").customDescription)
@@ -102,11 +102,22 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .unknownError("Unknown")
         
         do {
-            let results = try await sut.fetchUsernames(for: "apple")
+            let results = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.unknownError("Unknown").customDescription)
             }
+        }
+    }
+    
+    func testFetch_fetchDataType_notNil() async throws {
+        let sut = MockApiService()
+        
+        do {
+            let result = try await sut.fetchDataType(for: "someURL")
+            XCTAssertNotNil(result)
+        } catch {
+            XCTFail("Unexpected result")
         }
     }
     

@@ -13,7 +13,6 @@ extension SearchView {
         private let apiService: ApiServing
         
         private(set) var searchTask: Task<[User]?, Error>?
-        private(set) var users: [User]?
         private(set) var viewState: ViewState = .idle
         
         init(apiService: ApiServing) {
@@ -22,47 +21,43 @@ extension SearchView {
         
         public func handleSearch(for searchTerm: String) async {
             guard !searchTerm.isEmpty else {
-                users = nil
+                self.viewState = .idle
                 return
             }
             
-            await searchTask(for: searchTerm)
+            self.viewState = .loading
+            await performSearch(for: searchTerm)
         }
         
         public func cancelSearchTask() {
             searchTask?.cancel()
         }
         
-        private func searchTask(for searchTerm: String) async {
+        private func performSearch(for searchTerm: String) async {
             let task = Task(priority: .userInitiated) { [weak self] in
-                /// Debounce for 0.5 seconds
                 try await Task.sleep(for: .seconds(0.5))
                 
-                self?.viewState = .loading
                 do {
                     print("Getting userResults for \(searchTerm)")
                     let userResults = try await self?.apiService.fetchUserResults(for: searchTerm)
                     return try await self?.usersWithLoadedAvatars(for: userResults)
+                    
                 } catch {
                     print((error as? CustomApiError)?.customDescription ?? error.localizedDescription)
-                    
                     return nil
                 }
-                
             }
             
             self.searchTask = task
             
             await updateUserResults()
-            
-            viewState = .idle
         }
-        
+
         @MainActor private func updateUserResults() async {
-            do {
-                self.users = try await searchTask?.value
-            } catch {
-//                print("Task error: \(error.localizedDescription)")
+            if let users = try? await searchTask?.value {
+                self.viewState = .loaded(users)
+            } else {
+                self.viewState = .error("Search failed")
             }
         }
         
@@ -73,7 +68,7 @@ extension SearchView {
             for user in userResults.users {
                 let imageData = try await apiService.fetchDataType(for: user.avatarUrl)
                 
-                let newUser = User(username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, avatarImageData: imageData)
+                let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, avatarImageData: imageData)
                 
                 users.append(newUser)
             }
@@ -84,8 +79,10 @@ extension SearchView {
 }
 
 extension SearchView.ViewModel {
-        enum ViewState {
-            case idle, loading
-            case error(String)
-        }
+    enum ViewState: Equatable {
+        case idle
+        case loading
+        case loaded([User])
+        case error(String)
+    }
 }
