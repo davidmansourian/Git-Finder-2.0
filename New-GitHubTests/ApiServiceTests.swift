@@ -39,7 +39,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockData = mockSearch_invalidData
         
         do {
-            let results = try await sut.fetchUserResults(for: "apple")
+            _ = try await sut.fetchUserResults(for: "apple")
         } catch {
             XCTAssertEqual("The data couldn’t be read because it is missing.", error.localizedDescription)
         }
@@ -50,7 +50,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .badURL
         
         do {
-            let results = try await sut.fetchUserResults(for: "apple")
+            _ = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.badURL.customDescription)
@@ -63,7 +63,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .badServerResponse
         
         do {
-            let results = try await sut.fetchUserResults(for: "apple")
+            _ = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.badServerResponse.customDescription)
@@ -76,7 +76,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .invalidStatusCode(404)
         
         do {
-            let results = try await sut.fetchUserResults(for: "apple")
+            _ = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.invalidStatusCode(404).customDescription)
@@ -89,7 +89,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .parsingError("Couldn't parse")
         
         do {
-            let results = try await sut.fetchUserResults(for: "apple")
+            _ = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.parsingError("Couldn't parse").customDescription)
@@ -102,7 +102,7 @@ final class ApiServiceTests: XCTestCase {
         sut.mockError = .unknownError("Unknown")
         
         do {
-            let results = try await sut.fetchUserResults(for: "apple")
+            _ = try await sut.fetchUserResults(for: "apple")
         } catch {
             if let error = error as? CustomApiError {
                 XCTAssertEqual(error.customDescription, CustomApiError.unknownError("Unknown").customDescription)

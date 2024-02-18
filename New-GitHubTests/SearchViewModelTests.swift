@@ -8,6 +8,7 @@
 import XCTest
 @testable import New_GitHub
 
+// Tests involving handleSearch have 0.5 seconds added to them due to a task.sleep for debouncing the search term.
 final class SearchViewModelTests: XCTestCase {
     var sut: SearchView.ViewModel!
     var apiService: ApiServing!
