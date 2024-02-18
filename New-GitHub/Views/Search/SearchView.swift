@@ -28,24 +28,32 @@ struct SearchView: View {
             case .loading:
                 loadingList
             case .loaded(let users):
-                usersList(users)
+                if !users.isEmpty {
+                    usersList(users)
+                } else {
+                    Text("No users found")
+                        .font(.largeTitle)
+                        .fontWeight(.light)
+                }
             case .error(let error):
-                // Make error screen better
-                Text(error)
+                errorView(error)
             }
         }
         .searchable(text: $searchTerm)
         .onChange(of: searchTerm) {
             viewModel.cancelSearchTask()
-            
-            Task {
-                await viewModel.handleSearch(for: searchTerm)
-            }
+            callSearch()
         }
     }
 }
 
 extension SearchView {
+    private func callSearch() {
+        Task {
+            await viewModel.handleSearch(for: searchTerm)
+        }
+    }
+    
     private func usersList(_ users: [User]) -> some View {
         List(users, id: \.username) { user in
             ProfileResultItemView(user: user)
@@ -61,6 +69,21 @@ extension SearchView {
         }
         .shimmering()
         .listStyle(.plain)
+    }
+    
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 20) {
+            Text(error)
+                .fontWeight(.light)
+            
+            Button(action: {callSearch()}) {
+                Image(systemName: "arrow.clockwise")
+                    .font(.largeTitle)
+                    .fontWeight(.light)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding()
     }
 }
 

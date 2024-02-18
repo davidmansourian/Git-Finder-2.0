@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct LoadingListemItemView: View {
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack {
             Circle()
-                .foregroundStyle(.gray)
-                .opacity(0.4)
+                .foregroundStyle(colorScheme == .light ? .gray : .white)
+                .opacity(0.5)
                 .frame(width: 32, height: 32)
             
             RoundedRectangle(cornerRadius: 12)
-                .foregroundStyle(.gray)
+                .foregroundStyle(colorScheme == .light ? .gray : .white)
                 .opacity(0.4)
-                .frame(width: 100, height: 12)
+                .frame(width: 80, height: 10)
         }
-        .shimmering(active: true)
     }
 }
 
