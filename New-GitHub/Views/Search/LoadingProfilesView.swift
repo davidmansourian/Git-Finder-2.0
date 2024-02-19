@@ -30,7 +30,6 @@ struct LoadingListemItemView: View {
             
             Image(systemName: "chevron.right")
                 .font(.footnote)
-                //.redacted(reason: .placeholder)
         }
     }
 }

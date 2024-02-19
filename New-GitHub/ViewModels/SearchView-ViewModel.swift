@@ -86,6 +86,33 @@ extension SearchView {
             
             return users
         }
+        
+        // Concurrent solution using task group. For the small amout of images, not necessary as code is less readable.
+//        private func usersWithLoadedAvatars(for userResults: UserSearchResult?) async throws -> [User]? {
+//            guard let userResults = userResults else { return nil }
+//            
+//            let users = await withTaskGroup(of: (Int, User, Data?).self, returning: [User].self) { taskGroup in
+//                for (index, user) in userResults.users.enumerated() {
+//                    taskGroup.addTask {
+//                        let imageData = try? await self.apiService.fetchDataType(for: user.avatarUrl)
+//                        return (index, user, imageData)
+//                    }
+//                }
+//                
+//                var tempUsers: [Int: User] = [:]
+//                
+//                for await (index, user, imageData) in taskGroup {
+//                    let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, type: user.type, avatarImageData: imageData)
+//                    tempUsers[index] = newUser
+//                }
+//                
+//                let sortedUsers = tempUsers.sorted(by: {$0.key < $1.key}).map {$0.value}
+//                
+//                return sortedUsers
+//            }
+//            
+//            return users
+//        }
     }
 }
 
