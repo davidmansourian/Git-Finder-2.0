@@ -21,6 +21,11 @@ struct ProfileResultItemView: View {
             
             Text(user.username)
                 .fontWeight(.semibold)
+            
+            Spacer()
+            
+            Text(user.type)
+                .fontWeight(.ultraLight)
         }
         .font(.footnote)
     }
@@ -41,6 +46,8 @@ extension ProfileResultItemView {
 }
 
 #Preview {
-    let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "", avatarImageData: Data())
+    let testAvatar = UIImage(named: "testAvatar")
+    let avatarData = testAvatar?.pngData()
+    let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "", type: "User", avatarImageData: avatarData)
     return ProfileResultItemView(user: fakeUser)
 }

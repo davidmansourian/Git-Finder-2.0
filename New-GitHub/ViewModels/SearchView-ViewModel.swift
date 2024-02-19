@@ -21,6 +21,10 @@ extension SearchView {
             self.apiService = apiService
         }
         
+        public func cancelSearchTask() {
+            searchTask?.cancel()
+        }
+        
         public func handleSearch(for searchTerm: String) async {
             searchError = nil
             
@@ -30,13 +34,11 @@ extension SearchView {
             }
             
             self.viewState = .loading
+            
             await performSearch(for: searchTerm)
+            await updateUserResults()
         }
-        
-        public func cancelSearchTask() {
-            searchTask?.cancel()
-        }
-        
+                
         private func performSearch(for searchTerm: String) async {
             let task = Task(priority: .userInitiated) { [weak self] in
                 try await Task.sleep(for: .seconds(0.4))
@@ -47,10 +49,11 @@ extension SearchView {
                     return try await self?.usersWithLoadedAvatars(for: userResults)
                     
                 } catch {
-                    
                     /// Check so that error is not task cancelled
                     if self?.wasTaskCancelled(error) == false {
                         self?.searchError = (error as? CustomApiError)?.customDescription ?? error.localizedDescription
+                    } else {
+                        print("Task was cancelled due to updated searchterm. Hiding error from user.")
                     }
                     
                     return nil
@@ -58,8 +61,6 @@ extension SearchView {
             }
             
             self.searchTask = task
-            
-            await updateUserResults()
         }
 
         /// https://forums.swift.org/t/observable-macro-conflicting-with-mainactor/67309
@@ -78,7 +79,7 @@ extension SearchView {
             for user in userResults.users {
                 let imageData = try await apiService.fetchDataType(for: user.avatarUrl)
                 
-                let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, avatarImageData: imageData)
+                let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, type: user.type, avatarImageData: imageData)
                 
                 users.append(newUser)
             }
@@ -97,6 +98,6 @@ extension SearchView.ViewModel {
     }
     
     private func wasTaskCancelled(_ error: Error) -> Bool {
-        (error as? CustomApiError)?.customDescription == CustomApiError.unknownError("cancelled").customDescription
+        ((error as? CustomApiError)?.customDescription == CustomApiError.unknownError("cancelled").customDescription) || (error.localizedDescription == "cancelled")
     }
 }

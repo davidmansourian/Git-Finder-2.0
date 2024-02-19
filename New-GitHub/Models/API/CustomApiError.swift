@@ -22,9 +22,32 @@ public enum CustomApiError: Error {
         case .parsingError(let error):
             return "Failed to parse data: \(error)"
         case .invalidStatusCode(let statusCode):
-            return "Invalid status code: \(statusCode)"
+            return statusCodeDescription(statusCode)
         case .unknownError(let error):
             return "Unknown error: \(error)"
+        }
+    }
+    
+    private func statusCodeDescription(_ statusCode: Int) -> String {
+        switch statusCode {
+        case 400:
+            return "Bad Request"
+        case 401:
+            return "Unauthorized"
+        case 403:
+            return "Limit reached. Wait a moment and try again."
+        case 404:
+            return "Not Found"
+        case 500:
+            return "Internal Server Error"
+        case 502:
+            return "Bad Gateway"
+        case 503:
+            return "Service Unavailable"
+        case 504:
+            return "Gateway Timeout"
+        default:
+            return "Other Error"
         }
     }
 }

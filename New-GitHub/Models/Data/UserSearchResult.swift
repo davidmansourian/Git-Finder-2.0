@@ -24,11 +24,12 @@ public struct User: Codable, Identifiable, Hashable, Equatable {
     let username: String
     let avatarUrl: String
     let reposUrl: String
+    let type: String
     var avatarImageData: Data?
     
     enum CodingKeys: String, CodingKey {
         case username = "login"
-        case id
+        case id, type
         case avatarUrl = "avatar_url"
         case reposUrl = "repos_url"
     }

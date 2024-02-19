@@ -19,7 +19,18 @@ struct LoadingListemItemView: View {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundStyle(colorScheme == .light ? .gray : .white)
                 .opacity(0.4)
-                .frame(width: 80, height: 10)
+                .frame(width: 80, height: 9)
+            
+            Spacer()
+            
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundStyle(colorScheme == .light ? .gray : .white)
+                .opacity(0.4)
+                .frame(width: 50, height: 8)
+            
+            Image(systemName: "chevron.right")
+                .font(.footnote)
+                //.redacted(reason: .placeholder)
         }
     }
 }

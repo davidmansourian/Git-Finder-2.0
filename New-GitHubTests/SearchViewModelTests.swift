@@ -76,6 +76,17 @@ final class SearchViewModelTests: XCTestCase {
         
         await sut.handleSearch(for: "apple")
         
-        XCTAssertEqual(sut.viewState, SearchView.ViewModel.ViewState.error("Search failed"))
+        let correctError = CustomApiError.badServerResponse.customDescription
+        XCTAssertEqual(sut.viewState, SearchView.ViewModel.ViewState.error(correctError))
+    }
+    
+    func testSearch_taskWasCancelled_errorIsSkipped() async {
+        let apiService = MockApiService()
+        apiService.mockError = .unknownError("cancelled")
+        let sut = SearchView.ViewModel(apiService: apiService)
+        
+        await sut.handleSearch(for: "apple")
+        
+        XCTAssertEqual(sut.viewState, SearchView.ViewModel.ViewState.loading)
     }
 }

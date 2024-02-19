@@ -11,8 +11,8 @@ import SwiftUI
 struct SearchView: View {
     private let apiService: ApiServing
     
-    @State private var searchTerm = ""
     @State private var viewModel: ViewModel
+    @State private var searchTerm = ""
     
     init(apiService: ApiServing) {
         self.apiService = apiService
@@ -56,10 +56,15 @@ extension SearchView {
     
     private func usersList(_ users: [User]) -> some View {
         List(users, id: \.username) { user in
-            ProfileResultItemView(user: user)
-                .listRowSeparator(.hidden)
+            NavigationLink(value: user) {
+                ProfileResultItemView(user: user)
+            }
+            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
+        .navigationDestination(for: User.self) { user in
+            Text("This will be user view for \(user.username)")
+        }
     }
     
     private var loadingList: some View {
