@@ -12,11 +12,15 @@
 		DB25BC882B73F6C90039A4ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB25BC872B73F6C90039A4ED /* Assets.xcassets */; };
 		DB25BC8B2B73F6C90039A4ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB25BC8A2B73F6C90039A4ED /* Preview Assets.xcassets */; };
 		DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB25BC932B73F6E10039A4ED /* ApiService.swift */; };
+		DB8AB13E2BA73C8900959823 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13D2BA73C8900959823 /* ProfileView.swift */; };
+		DB8AB1402BA73C9100959823 /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13F2BA73C9100959823 /* ProfileCardView.swift */; };
+		DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */; };
+		DB8AB1452BA741D400959823 /* FilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB1442BA741D400959823 /* FilterBarView.swift */; };
 		DBDC95D42B80B74400ACDB0F /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */; };
 		DBDC95D92B80E05A00ACDB0F /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */; };
-		DBDC95DB2B80E1B100ACDB0F /* LoadingProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */; };
+		DBDC95DB2B80E1B100ACDB0F /* LoadingListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95DA2B80E1B100ACDB0F /* LoadingListItemView.swift */; };
 		DBE75CE32B8206BA00B998E8 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */; };
-		DBE75CE62B83DF4400B998E8 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE52B83DF4400B998E8 /* Repositories.swift */; };
+		DBE75CE62B83DF4400B998E8 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE52B83DF4400B998E8 /* Repository.swift */; };
 		DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */; };
 		DBEEBB3F2B763C1500165EDC /* HTTPDataDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */; };
 		DBEEBB422B763D7700165EDC /* UserSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB412B763D7700165EDC /* UserSearchResult.swift */; };
@@ -44,11 +48,15 @@
 		DB25BC872B73F6C90039A4ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB25BC8A2B73F6C90039A4ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB25BC932B73F6E10039A4ED /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		DB8AB13D2BA73C8900959823 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		DB8AB13F2BA73C9100959823 /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
+		DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView-ViewModel.swift"; sourceTree = "<group>"; };
+		DB8AB1442BA741D400959823 /* FilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarView.swift; sourceTree = "<group>"; };
 		DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
 		DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
-		DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProfilesView.swift; sourceTree = "<group>"; };
+		DBDC95DA2B80E1B100ACDB0F /* LoadingListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingListItemView.swift; sourceTree = "<group>"; };
 		DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
-		DBE75CE52B83DF4400B998E8 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
+		DBE75CE52B83DF4400B998E8 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomApiError.swift; sourceTree = "<group>"; };
 		DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataDownloading.swift; sourceTree = "<group>"; };
 		DBEEBB412B763D7700165EDC /* UserSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResult.swift; sourceTree = "<group>"; };
@@ -125,11 +133,21 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		DB8AB13C2BA73C7100959823 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				DB8AB1442BA741D400959823 /* FilterBarView.swift */,
+				DB8AB13D2BA73C8900959823 /* ProfileView.swift */,
+				DB8AB13F2BA73C9100959823 /* ProfileCardView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		DBDC95D12B80A8DC00ACDB0F /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				DBEEBB412B763D7700165EDC /* UserSearchResult.swift */,
-				DBE75CE52B83DF4400B998E8 /* Repositories.swift */,
+				DBE75CE52B83DF4400B998E8 /* Repository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -138,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */,
+				DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -147,7 +166,7 @@
 			children = (
 				DB25BC852B73F6C70039A4ED /* SearchView.swift */,
 				DBEEBB492B76573C00165EDC /* ProfileResultItemView.swift */,
-				DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */,
+				DBDC95DA2B80E1B100ACDB0F /* LoadingListItemView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -168,6 +187,7 @@
 			children = (
 				DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */,
 				DBE75CE42B8221F600B998E8 /* Search */,
+				DB8AB13C2BA73C7100959823 /* Profile */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,10 +311,14 @@
 				DBEEBB5D2B7681ED00165EDC /* MockApiService.swift in Sources */,
 				DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */,
 				DBEEBB5F2B7682A900165EDC /* MockJSONData.swift in Sources */,
-				DBE75CE62B83DF4400B998E8 /* Repositories.swift in Sources */,
+				DBE75CE62B83DF4400B998E8 /* Repository.swift in Sources */,
+				DB8AB1402BA73C9100959823 /* ProfileCardView.swift in Sources */,
+				DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */,
+				DB8AB1452BA741D400959823 /* FilterBarView.swift in Sources */,
 				DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */,
 				DBEEBB4A2B76573C00165EDC /* ProfileResultItemView.swift in Sources */,
-				DBDC95DB2B80E1B100ACDB0F /* LoadingProfilesView.swift in Sources */,
+				DB8AB13E2BA73C8900959823 /* ProfileView.swift in Sources */,
+				DBDC95DB2B80E1B100ACDB0F /* LoadingListItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

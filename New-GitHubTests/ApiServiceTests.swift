@@ -107,6 +107,18 @@ final class ApiServiceTests: XCTestCase {
         }
     }
     
+    func testFetch_testErrorThrown_invalidData() async throws {
+        sut.mockError = .invalidData
+        
+        do {
+            _ = try await sut.fetchUserResult(for: "apple")
+        } catch {
+            if let error = error as? CustomApiError {
+                XCTAssertEqual(error.customDescription, CustomApiError.invalidData.customDescription)
+            }
+        }
+    }
+    
     func testFetch_fetchDataType_notNil() async throws {
         do {
             let result = try await sut.fetchDataType(for: "someURL")
@@ -116,5 +128,21 @@ final class ApiServiceTests: XCTestCase {
         }
     }
     
+    func testFetch_fetchUserInfo_notNil() async throws {
+        do {
+            let result = try await sut.fetchUserInfo(for: "someURL")
+            XCTAssertNotNil(result)
+        } catch {
+            XCTFail("Unexpected result")
+        }
+    }
     
+    func testFetch_fetchUserInfo_usernameIsTest() async throws {
+        do {
+            let result = try await sut.fetchUserInfo(for: "someURL")
+            XCTAssertEqual(result.username, "Test")
+        } catch {
+            XCTFail("Unexpected result")
+        }
+    }
 }

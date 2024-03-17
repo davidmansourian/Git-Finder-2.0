@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Repository: Decodable {
+struct Repository: Codable, Hashable, Equatable {
     let repoName: String
     let owner: RepositoryOwner
     let description: String
@@ -25,7 +25,7 @@ struct Repository: Decodable {
     
 }
 
-struct RepositoryOwner: Decodable {
+struct RepositoryOwner: Codable, Hashable, Equatable {
     let username: String
     let avatarUrl: String
     

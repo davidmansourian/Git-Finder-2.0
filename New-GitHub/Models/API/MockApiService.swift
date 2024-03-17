@@ -20,4 +20,8 @@ class MockApiService: ApiServing {
     func fetchDataType(for urlString: String) async throws -> Data {
         return Data()
     }
+    
+    func fetchUserInfo(for user: String) async throws -> User {
+        return User(id: 1, username: "Test", avatarUrl: "testAvatarUrl", url: "testUrl", reposUrl: "testReposUrl", type: "User", publicRepos: 12)
+    }
 }

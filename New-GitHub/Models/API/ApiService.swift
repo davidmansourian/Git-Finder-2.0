@@ -11,6 +11,7 @@ import SwiftUI
 protocol ApiServing {
     func fetchUserResult(for searchTerm: String) async throws -> UserSearchResult
     func fetchDataType(for urlString: String) async throws -> Data
+    func fetchUserInfo(for user: String) async throws -> User
 }
 
 struct ApiService: HTTPDataDownloading, ApiServing {
@@ -20,13 +21,13 @@ struct ApiService: HTTPDataDownloading, ApiServing {
     }
     
     public func fetchDataType(for urlString: String) async throws -> Data {
-        return try await fetchData(as: Data.self, from: urlString)
+        try await fetchData(as: Data.self, from: urlString)
     }
     
-//    public func fetchUserRepoCount(for urlString: String) async throws -> Int {
-//        
-//    }
-    
+    public func fetchUserInfo(for user: String) async throws -> User {
+        guard let endpoint = userProfileUrl(for: user) else { throw CustomApiError.badURL }
+        return try await fetchData(as: User.self, from: endpoint)
+    }
 }
 
 extension ApiService {
@@ -46,6 +47,13 @@ extension ApiService {
         components.queryItems = [
             .init(name: "q", value: searchTerm)
         ]
+        
+        return components.url?.absoluteString
+    }
+    
+    private func userProfileUrl(for user: String) -> String? {
+        var components = baseUrlComponents
+        components.path += "/users/\(user)"
         
         return components.url?.absoluteString
     }

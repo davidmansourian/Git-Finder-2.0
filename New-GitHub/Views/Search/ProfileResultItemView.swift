@@ -31,20 +31,6 @@ struct ProfileResultItemView: View {
     }
 }
 
-extension ProfileResultItemView {
-    private var avatarImage: some View {
-        AsyncImage(url: URL(string: user.avatarUrl)) { image in
-            image
-                .resizable()
-                .frame(width: 32, height: 32)
-                .clipShape(Circle())
-        } placeholder: {
-            ProgressView()
-                .frame(width: 32, height: 32)
-        }
-    }
-}
-
 #Preview {
     let testAvatar = UIImage(named: "testAvatar")
     let avatarData = testAvatar?.pngData()

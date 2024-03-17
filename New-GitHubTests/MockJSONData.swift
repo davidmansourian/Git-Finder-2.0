@@ -235,3 +235,40 @@ let mockSearch_invalidData = """
   ]
 }
 """.data(using: .utf8)!
+
+let mockProfile_userInfo_apple = """
+{
+  "login": "apple",
+  "id": 10639145,
+  "node_id": "MDEyOk9yZ2FuaXphdGlvbjEwNjM5MTQ1",
+  "avatar_url": "https://avatars.githubusercontent.com/u/10639145?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/apple",
+  "html_url": "https://github.com/apple",
+  "followers_url": "https://api.github.com/users/apple/followers",
+  "following_url": "https://api.github.com/users/apple/following{/other_user}",
+  "gists_url": "https://api.github.com/users/apple/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/apple/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/apple/subscriptions",
+  "organizations_url": "https://api.github.com/users/apple/orgs",
+  "repos_url": "https://api.github.com/users/apple/repos",
+  "events_url": "https://api.github.com/users/apple/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/apple/received_events",
+  "type": "Organization",
+  "site_admin": false,
+  "name": "Apple",
+  "company": null,
+  "blog": "https://apple.com",
+  "location": "Cupertino, CA",
+  "email": null,
+  "hireable": null,
+  "bio": null,
+  "twitter_username": null,
+  "public_repos": 285,
+  "public_gists": 0,
+  "followers": 20780,
+  "following": 0,
+  "created_at": "2015-01-21T20:19:28Z",
+  "updated_at": "2023-05-17T22:06:06Z"
+}
+""".data(using: .utf8)!

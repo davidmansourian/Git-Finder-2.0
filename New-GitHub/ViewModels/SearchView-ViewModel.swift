@@ -62,8 +62,38 @@ extension SearchView {
             
             self.searchTask = task
         }
+        
+        private func usersWithLoadedAvatars(for userResults: UserSearchResult?) async throws -> [User]? {
+            guard let userResults = userResults else { return nil }
+            
+            let users = await withTaskGroup(of: (Int, User, Data?).self, returning: [User]?.self) { [weak self] taskGroup in
+                guard let self = self else { return nil }
+                for (index, user) in userResults.users.enumerated() {
+                    taskGroup.addTask {
+                        let imageData = try? await self.apiService.fetchDataType(for: user.avatarUrl)
+                        return (index, user, imageData)
+                    }
+                }
+                
+                var tempUsers: [Int: User] = [:]
+                
+                for await (index, user, imageData) in taskGroup {
+                    let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, url: user.url, reposUrl: user.reposUrl, type: user.type, publicRepos: user.publicRepos, avatarImageData: imageData)
+                    tempUsers[index] = newUser
+                }
+                
+                let sortedUsers = tempUsers.sorted(by: {$0.key < $1.key}).map {$0.value}
+                
+                return sortedUsers
+            }
+            
+            return users
+        }
+        
+        private func wasTaskCancelled(_ error: Error) -> Bool {
+            ((error as? CustomApiError)?.customDescription == CustomApiError.unknownError("cancelled").customDescription) || (error.localizedDescription == "cancelled")
+        }
 
-        /// https://forums.swift.org/t/observable-macro-conflicting-with-mainactor/67309
         @MainActor
         private func updateUserResults() async {
             if let users = try? await searchTask?.value {
@@ -72,48 +102,6 @@ extension SearchView {
                 self.viewState = .error(error)
             }
         }
-        
-        private func usersWithLoadedAvatars(for userResults: UserSearchResult?) async throws -> [User]? {
-            guard let userResults = userResults else { return nil }
-            var users: [User] = []
-            
-            for user in userResults.users {
-                let imageData = try await apiService.fetchDataType(for: user.avatarUrl)
-                
-                let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, url: user.url, reposUrl: user.reposUrl, type: user.type, publicRepos: user.publicRepos, avatarImageData: imageData)
-                
-                users.append(newUser)
-            }
-            
-            return users
-        }
-        
-        // Concurrent solution using task group. For the small amout of images, not necessary as code is less readable.
-//        private func usersWithLoadedAvatars(for userResults: UserSearchResult?) async throws -> [User]? {
-//            guard let userResults = userResults else { return nil }
-//            
-//            let users = await withTaskGroup(of: (Int, User, Data?).self, returning: [User].self) { taskGroup in
-//                for (index, user) in userResults.users.enumerated() {
-//                    taskGroup.addTask {
-//                        let imageData = try? await self.apiService.fetchDataType(for: user.avatarUrl)
-//                        return (index, user, imageData)
-//                    }
-//                }
-//                
-//                var tempUsers: [Int: User] = [:]
-//                
-//                for await (index, user, imageData) in taskGroup {
-//                    let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, type: user.type, avatarImageData: imageData)
-//                    tempUsers[index] = newUser
-//                }
-//                
-//                let sortedUsers = tempUsers.sorted(by: {$0.key < $1.key}).map {$0.value}
-//                
-//                return sortedUsers
-//            }
-//            
-//            return users
-//        }
     }
 }
 
@@ -123,9 +111,5 @@ extension SearchView.ViewModel {
         case loading
         case loaded([User])
         case error(String)
-    }
-    
-    private func wasTaskCancelled(_ error: Error) -> Bool {
-        ((error as? CustomApiError)?.customDescription == CustomApiError.unknownError("cancelled").customDescription) || (error.localizedDescription == "cancelled")
     }
 }

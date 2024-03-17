@@ -28,6 +28,7 @@ public struct User: Codable, Identifiable, Hashable, Equatable {
     let type: String
     let publicRepos: Int?
     var avatarImageData: Data?
+    var repositories: [Repository]?
     
     enum CodingKeys: String, CodingKey {
         case username = "login"
@@ -35,5 +36,6 @@ public struct User: Codable, Identifiable, Hashable, Equatable {
         case avatarUrl = "avatar_url"
         case reposUrl = "repos_url"
         case publicRepos = "public_repos"
+        case repositories
     }
 }

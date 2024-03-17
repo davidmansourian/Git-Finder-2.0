@@ -11,16 +11,19 @@ import SwiftUI
 struct SearchView: View {
     private let apiService: ApiServing
     
+    @State private var path = NavigationPath()
     @State private var viewModel: ViewModel
     @State private var searchTerm = ""
     
     init(apiService: ApiServing) {
         self.apiService = apiService
         self._viewModel = State(wrappedValue: ViewModel(apiService: apiService))
+        
+        print("did init view")
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             switch viewModel.viewState {
             case .idle:
                 /// Search history
