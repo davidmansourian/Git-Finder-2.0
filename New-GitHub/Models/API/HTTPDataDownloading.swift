@@ -9,7 +9,6 @@ import Foundation
 
 public protocol HTTPDataDownloading {
     func fetchData<T: Decodable>(as type: T.Type, from endpoint: String) async throws -> T
-    func fetchRawData(from endpoint: String) async throws -> Data
 }
 
 extension HTTPDataDownloading {
@@ -24,28 +23,9 @@ extension HTTPDataDownloading {
         
         try validateResponse(response)
         
-        do {
-            let decodedData = try JSONDecoder().decode(type, from: data)
-            return decodedData
-        } catch {
-            throw error as? CustomApiError ?? CustomApiError.unknownError(error.localizedDescription)
-        }
-    }
-    
-    public func fetchRawData(from endpoint: String) async throws -> Data {
-        guard let url = URL(string: endpoint) else {
-            throw CustomApiError.badURL
-        }
+        guard let validatedData = try validateData(for: type, from: data) else { throw CustomApiError.invalidData }
         
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            try validateResponse(response)
-            
-            return data
-        } catch {
-            throw error as? CustomApiError ?? CustomApiError.unknownError(error.localizedDescription)
-        }
+        return validatedData
     }
     
     private func validateResponse(_ response: URLResponse?) throws {
@@ -55,6 +35,18 @@ extension HTTPDataDownloading {
         
         guard httpResponse.statusCode == 200 else {
             throw CustomApiError.invalidStatusCode(httpResponse.statusCode)
+        }
+    }
+    
+    private func validateData<T: Decodable>(for type: T.Type, from data: Data) throws -> T? {
+        if type == UserSearchResult.self {
+            do {
+                return try JSONDecoder().decode(type, from: data)
+            } catch {
+                throw CustomApiError.invalidData
+            }
+        } else {
+            return data as? T
         }
     }
 }

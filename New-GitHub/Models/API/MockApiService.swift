@@ -11,7 +11,7 @@ class MockApiService: ApiServing {
     var mockData: Data?
     var mockError: CustomApiError?
     
-    func fetchUserResults(for searchTerm: String) async throws -> UserSearchResult {
+    func fetchUserResult(for searchTerm: String) async throws -> UserSearchResult {
         if let mockError { throw mockError }
         
         return try JSONDecoder().decode(UserSearchResult.self, from: mockData ?? mockSearch_userResultsData)

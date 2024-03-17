@@ -11,7 +11,7 @@ import XCTest
 // Tests involving handleSearch have 0.5 seconds added to them due to a task.sleep for debouncing the search term.
 final class SearchViewModelTests: XCTestCase {
     var sut: SearchView.ViewModel!
-    var apiService: ApiServing!
+    var apiService: MockApiService!
     
     override func setUp() {
         apiService = MockApiService()
@@ -70,9 +70,7 @@ final class SearchViewModelTests: XCTestCase {
     }
     
     func testSearch_withSearchTerm_withError() async {
-        let apiService = MockApiService()
         apiService.mockError = .badServerResponse
-        let sut = SearchView.ViewModel(apiService: apiService)
         
         await sut.handleSearch(for: "apple")
         
@@ -81,9 +79,7 @@ final class SearchViewModelTests: XCTestCase {
     }
     
     func testSearch_taskWasCancelled_errorIsSkipped() async {
-        let apiService = MockApiService()
         apiService.mockError = .unknownError("cancelled")
-        let sut = SearchView.ViewModel(apiService: apiService)
         
         await sut.handleSearch(for: "apple")
         

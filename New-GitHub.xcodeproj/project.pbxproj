@@ -16,6 +16,7 @@
 		DBDC95D92B80E05A00ACDB0F /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */; };
 		DBDC95DB2B80E1B100ACDB0F /* LoadingProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */; };
 		DBE75CE32B8206BA00B998E8 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */; };
+		DBE75CE62B83DF4400B998E8 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE52B83DF4400B998E8 /* Repositories.swift */; };
 		DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */; };
 		DBEEBB3F2B763C1500165EDC /* HTTPDataDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */; };
 		DBEEBB422B763D7700165EDC /* UserSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEEBB412B763D7700165EDC /* UserSearchResult.swift */; };
@@ -47,6 +48,7 @@
 		DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		DBDC95DA2B80E1B100ACDB0F /* LoadingProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProfilesView.swift; sourceTree = "<group>"; };
 		DBE75CE22B8206BA00B998E8 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
+		DBE75CE52B83DF4400B998E8 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 		DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomApiError.swift; sourceTree = "<group>"; };
 		DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataDownloading.swift; sourceTree = "<group>"; };
 		DBEEBB412B763D7700165EDC /* UserSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResult.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				DBEEBB412B763D7700165EDC /* UserSearchResult.swift */,
+				DBE75CE52B83DF4400B998E8 /* Repositories.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				DBEEBB5D2B7681ED00165EDC /* MockApiService.swift in Sources */,
 				DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */,
 				DBEEBB5F2B7682A900165EDC /* MockJSONData.swift in Sources */,
+				DBE75CE62B83DF4400B998E8 /* Repositories.swift in Sources */,
 				DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */,
 				DBEEBB4A2B76573C00165EDC /* ProfileResultItemView.swift in Sources */,
 				DBDC95DB2B80E1B100ACDB0F /* LoadingProfilesView.swift in Sources */,

@@ -45,7 +45,7 @@ extension SearchView {
                 
                 do {
                     print("Getting userResults for \(searchTerm)")
-                    let userResults = try await self?.apiService.fetchUserResults(for: searchTerm)
+                    let userResults = try await self?.apiService.fetchUserResult(for: searchTerm)
                     return try await self?.usersWithLoadedAvatars(for: userResults)
                     
                 } catch {
@@ -64,7 +64,8 @@ extension SearchView {
         }
 
         /// https://forums.swift.org/t/observable-macro-conflicting-with-mainactor/67309
-        @MainActor private func updateUserResults() async {
+        @MainActor
+        private func updateUserResults() async {
             if let users = try? await searchTask?.value {
                 self.viewState = .loaded(users)
             } else if let error = searchError {
@@ -79,7 +80,7 @@ extension SearchView {
             for user in userResults.users {
                 let imageData = try await apiService.fetchDataType(for: user.avatarUrl)
                 
-                let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, reposUrl: user.reposUrl, type: user.type, avatarImageData: imageData)
+                let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, url: user.url, reposUrl: user.reposUrl, type: user.type, publicRepos: user.publicRepos, avatarImageData: imageData)
                 
                 users.append(newUser)
             }

@@ -12,6 +12,7 @@ public enum CustomApiError: Error {
     case parsingError(String)
     case invalidStatusCode(Int)
     case unknownError(String)
+    case invalidData
     
     var customDescription: String {
         switch self {
@@ -25,6 +26,8 @@ public enum CustomApiError: Error {
             return statusCodeDescription(statusCode)
         case .unknownError(let error):
             return "Unknown error: \(error)"
+        case .invalidData:
+            return "Invalid data"
         }
     }
     

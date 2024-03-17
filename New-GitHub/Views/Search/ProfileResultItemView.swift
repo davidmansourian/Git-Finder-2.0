@@ -48,6 +48,6 @@ extension ProfileResultItemView {
 #Preview {
     let testAvatar = UIImage(named: "testAvatar")
     let avatarData = testAvatar?.pngData()
-    let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", reposUrl: "", type: "User", avatarImageData: avatarData)
+    let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", url: "https://api.github.com/users/davidmansourian", reposUrl: "", type: "User", publicRepos: 5, avatarImageData: avatarData)
     return ProfileResultItemView(user: fakeUser)
 }
