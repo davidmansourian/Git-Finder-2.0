@@ -66,7 +66,7 @@ extension SearchView {
         }
         .listStyle(.plain)
         .navigationDestination(for: User.self) { user in
-            Text("This will be user view for \(user.username)")
+            ProfileView(apiService: apiService, user: user)
         }
     }
     

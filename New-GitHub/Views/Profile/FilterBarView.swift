@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FilterBarView: View {
-    @State private var filterState: FilterState = .all
+    @Binding var filterState: FilterState
     @Namespace var animation
     
     var body: some View {
@@ -42,22 +42,6 @@ struct FilterBarView: View {
     }
 }
 
-extension FilterBarView {
-    enum FilterState: Int, CaseIterable {
-        case all
-        case owner
-        case contributor
-        
-        var title: String {
-            switch self {
-            case .all: return "All repos"
-            case .owner: return "Owned"
-            case .contributor: return "Contributor"
-            }
-        }
-    }
-}
-
 #Preview {
-    FilterBarView()
+    FilterBarView(filterState: .constant(.all))
 }

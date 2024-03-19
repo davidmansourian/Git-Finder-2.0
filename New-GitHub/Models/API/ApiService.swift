@@ -12,6 +12,7 @@ protocol ApiServing {
     func fetchUserResult(for searchTerm: String) async throws -> UserSearchResult
     func fetchDataType(for urlString: String) async throws -> Data
     func fetchUserInfo(for user: String) async throws -> User
+    func fetchRepositories(for user: String, pageNumber: Int) async throws -> [Repository]
 }
 
 struct ApiService: HTTPDataDownloading, ApiServing {
@@ -27,6 +28,11 @@ struct ApiService: HTTPDataDownloading, ApiServing {
     public func fetchUserInfo(for user: String) async throws -> User {
         guard let endpoint = userProfileUrl(for: user) else { throw CustomApiError.badURL }
         return try await fetchData(as: User.self, from: endpoint)
+    }
+    
+    public func fetchRepositories(for user: String, pageNumber: Int) async throws -> [Repository] {
+        guard let endpoint = repositoryUrl(for: user, page: pageNumber) else { throw CustomApiError.badURL }
+        return try await fetchData(as: [Repository].self, from: endpoint)
     }
 }
 
@@ -59,12 +65,15 @@ extension ApiService {
     }
     
     // https://api.github.com/users/apple/repos?type=all&sort=updated&affiliation=collaborator&page=1&per_page=100
-    private func repositoryUrl(for user: String) -> String? {
+    // https://api.github.com/users/apple/repos?type=all&page=1&per_page=100
+    private func repositoryUrl(for user: String, page: Int) -> String? {
         var components = baseUrlComponents
         components.path += "/users/\(user)/repos"
         
         components.queryItems = [
-            .init(name: "type", value: "all")
+            .init(name: "type", value: "all"),
+            .init(name: "page", value: String(page)),
+            .init(name: "per_page", value: "30")
         ]
         
         return components.url?.absoluteString

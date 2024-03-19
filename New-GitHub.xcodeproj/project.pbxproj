@@ -12,8 +12,10 @@
 		DB25BC882B73F6C90039A4ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB25BC872B73F6C90039A4ED /* Assets.xcassets */; };
 		DB25BC8B2B73F6C90039A4ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB25BC8A2B73F6C90039A4ED /* Preview Assets.xcassets */; };
 		DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB25BC932B73F6E10039A4ED /* ApiService.swift */; };
+		DB360F922BA9E3A4001E5C2C /* FilterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB360F912BA9E3A4001E5C2C /* FilterState.swift */; };
+		DB360F952BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB360F942BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift */; };
 		DB8AB13E2BA73C8900959823 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13D2BA73C8900959823 /* ProfileView.swift */; };
-		DB8AB1402BA73C9100959823 /* ProfileCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13F2BA73C9100959823 /* ProfileCardView.swift */; };
+		DB8AB1402BA73C9100959823 /* RepositoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */; };
 		DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */; };
 		DB8AB1452BA741D400959823 /* FilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB1442BA741D400959823 /* FilterBarView.swift */; };
 		DBDC95D42B80B74400ACDB0F /* SearchView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */; };
@@ -48,8 +50,10 @@
 		DB25BC872B73F6C90039A4ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB25BC8A2B73F6C90039A4ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB25BC932B73F6E10039A4ED /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		DB360F912BA9E3A4001E5C2C /* FilterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterState.swift; sourceTree = "<group>"; };
+		DB360F942BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCardSkeletonView.swift; sourceTree = "<group>"; };
 		DB8AB13D2BA73C8900959823 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		DB8AB13F2BA73C9100959823 /* ProfileCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardView.swift; sourceTree = "<group>"; };
+		DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCardView.swift; sourceTree = "<group>"; };
 		DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView-ViewModel.swift"; sourceTree = "<group>"; };
 		DB8AB1442BA741D400959823 /* FilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarView.swift; sourceTree = "<group>"; };
 		DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchView-ViewModel.swift"; sourceTree = "<group>"; };
@@ -138,7 +142,8 @@
 			children = (
 				DB8AB1442BA741D400959823 /* FilterBarView.swift */,
 				DB8AB13D2BA73C8900959823 /* ProfileView.swift */,
-				DB8AB13F2BA73C9100959823 /* ProfileCardView.swift */,
+				DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */,
+				DB360F942BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 			children = (
 				DBEEBB412B763D7700165EDC /* UserSearchResult.swift */,
 				DBE75CE52B83DF4400B998E8 /* Repository.swift */,
+				DB360F912BA9E3A4001E5C2C /* FilterState.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -174,8 +180,8 @@
 		DBEEBB402B763C2E00165EDC /* API */ = {
 			isa = PBXGroup;
 			children = (
-				DB25BC932B73F6E10039A4ED /* ApiService.swift */,
 				DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */,
+				DB25BC932B73F6E10039A4ED /* ApiService.swift */,
 				DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */,
 				DBEEBB5C2B7681ED00165EDC /* MockApiService.swift */,
 			);
@@ -305,6 +311,7 @@
 				DBDC95D42B80B74400ACDB0F /* SearchView-ViewModel.swift in Sources */,
 				DBDC95D92B80E05A00ACDB0F /* Shimmer.swift in Sources */,
 				DB25BC862B73F6C70039A4ED /* SearchView.swift in Sources */,
+				DB360F922BA9E3A4001E5C2C /* FilterState.swift in Sources */,
 				DB25BC842B73F6C70039A4ED /* New_GitHubApp.swift in Sources */,
 				DBEEBB422B763D7700165EDC /* UserSearchResult.swift in Sources */,
 				DBEEBB3F2B763C1500165EDC /* HTTPDataDownloading.swift in Sources */,
@@ -312,8 +319,9 @@
 				DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */,
 				DBEEBB5F2B7682A900165EDC /* MockJSONData.swift in Sources */,
 				DBE75CE62B83DF4400B998E8 /* Repository.swift in Sources */,
-				DB8AB1402BA73C9100959823 /* ProfileCardView.swift in Sources */,
+				DB8AB1402BA73C9100959823 /* RepositoryCardView.swift in Sources */,
 				DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */,
+				DB360F952BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift in Sources */,
 				DB8AB1452BA741D400959823 /* FilterBarView.swift in Sources */,
 				DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */,
 				DBEEBB4A2B76573C00165EDC /* ProfileResultItemView.swift in Sources */,

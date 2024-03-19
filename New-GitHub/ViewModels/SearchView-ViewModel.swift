@@ -78,7 +78,7 @@ extension SearchView {
                 var tempUsers: [Int: User] = [:]
                 
                 for await (index, user, imageData) in taskGroup {
-                    let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, url: user.url, reposUrl: user.reposUrl, type: user.type, publicRepos: user.publicRepos, avatarImageData: imageData)
+                    let newUser = User(id: user.id, username: user.username, avatarUrl: user.avatarUrl, url: user.url, reposUrl: user.reposUrl, type: user.type, avatarImageData: imageData)
                     tempUsers[index] = newUser
                 }
                 
