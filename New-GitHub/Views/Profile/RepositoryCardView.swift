@@ -9,23 +9,31 @@ import SwiftUI
 
 struct RepositoryCardView: View {
     let repository: Repository
+    let imageData: Data?
+    
+    init(repository: Repository, imageData: Data?) {
+        self.repository = repository
+        self.imageData = imageData
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text(repository.name)
                     .font(.title3)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                 
                 Spacer()
                 
                 Text("View repository")
-                    .foregroundStyle(.blue)
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
             }
             
             if let description = repository.description {
                 Text(description)
-                    .font(.callout)
+                    .font(.subheadline)
+                    .fontWeight(.light)
                     .padding(.vertical, 5)
             }
             
@@ -38,9 +46,10 @@ struct RepositoryCardView: View {
                 
                 Image(systemName: "eye")
                     .foregroundStyle(.gray)
+                    .opacity(0.2)
                 Text("\(watchers) watchers")
             }
-            .font(.footnote)
+            .font(.caption)
             .fontWeight(.ultraLight)
             .padding(.top, 10)
         }
@@ -57,9 +66,9 @@ private extension RepositoryCardView {
     }
     
     var avatarImage: some View {
-        if let avatarData = repository.owner.avatarData,
-           let avatar = UIImage(data: avatarData) {
-            let image = Image(uiImage: avatar)
+        if let avatarImageData = imageData,
+           let avatarUiImage = UIImage(data: avatarImageData) {
+            let image = Image(uiImage: avatarUiImage)
                 .resizable()
                 .scaledToFit()
                 .clipShape(Circle())
@@ -74,9 +83,10 @@ private extension RepositoryCardView {
 }
 
 #Preview {
-    let avatar = UIImage(named: "testAvatar")
-    let avatarData = avatar?.jpegData(compressionQuality: 0.9)
-    let fakeRepoOwner = RepositoryOwner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", avatarData: avatarData)
+    let mockImage = UIImage(named: "testAvatar")
+    let mockImageData = mockImage?.jpegData(compressionQuality: 1.0)
+    let fakeRepoOwner = RepositoryOwner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
     let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25)
-    return RepositoryCardView(repository: fakeRepository)
+    let mockApiService = MockApiService()
+    return RepositoryCardView(repository: fakeRepository, imageData: mockImageData ?? Data())
 }

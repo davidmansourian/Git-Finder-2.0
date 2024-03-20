@@ -9,20 +9,34 @@ import Foundation
 import SwiftUI
 
 protocol ApiServing {
+    var cacheManager: CacheManager { get }
     func fetchUserResult(for searchTerm: String) async throws -> UserSearchResult
-    func fetchDataType(for urlString: String) async throws -> Data
+    func fetchImageData(for urlString: String) async throws -> Data
     func fetchUserInfo(for user: String) async throws -> User
     func fetchRepositories(for user: String, pageNumber: Int) async throws -> [Repository]
 }
 
 struct ApiService: HTTPDataDownloading, ApiServing {
+    var cacheManager: CacheManager
+    
+    init(cacheManager: CacheManager) {
+        self.cacheManager = cacheManager
+    }
+    
     public func fetchUserResult(for searchTerm: String) async throws -> UserSearchResult {
         guard let endpoint = userSearchUrl(for: searchTerm) else { throw CustomApiError.badURL }
         return try await fetchData(as: UserSearchResult.self, from: endpoint)
     }
     
-    public func fetchDataType(for urlString: String) async throws -> Data {
-        try await fetchData(as: Data.self, from: urlString)
+    // url form: https://avatars.githubusercontent.com/u/112928485?v=4
+    public func fetchImageData(for urlString: String) async throws -> Data {
+        if let cachedImageData = cacheManager.get(as: Data.self, forKey: urlString) {
+            return cachedImageData
+        }
+        
+        let imageData = try await fetchData(as: Data.self, from: urlString)
+        cacheManager.set(toCache: imageData, forKey: urlString)
+        return imageData
     }
     
     public func fetchUserInfo(for user: String) async throws -> User {

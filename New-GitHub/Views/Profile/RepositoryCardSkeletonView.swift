@@ -13,16 +13,18 @@ struct RepositoryCardSkeletonView: View {
             HStack {
                 Text("Skeletonman")
                     .font(.title3)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                 
                 Spacer()
                 
                 Text("View repository")
-                    .foregroundStyle(.blue)
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
             }
             
                 Text("This is a skeleton description")
-                    .font(.callout)
+                    .font(.subheadline)
+                    .fontWeight(.light)
                     .padding(.vertical, 5)
             
             HStack {
@@ -35,9 +37,10 @@ struct RepositoryCardSkeletonView: View {
                 
                 Image(systemName: "eye")
                     .foregroundStyle(.gray)
+                    .opacity(0.2)
                 Text("\(12) watchers")
             }
-            .font(.footnote)
+            .font(.caption)
             .fontWeight(.ultraLight)
             .padding(.top, 10)
         }

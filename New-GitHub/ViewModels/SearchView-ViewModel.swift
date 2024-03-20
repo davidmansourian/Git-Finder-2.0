@@ -70,7 +70,7 @@ extension SearchView {
                 guard let self = self else { return nil }
                 for (index, user) in userResults.users.enumerated() {
                     taskGroup.addTask {
-                        let imageData = try? await self.apiService.fetchDataType(for: user.avatarUrl)
+                        let imageData = try? await self.apiService.fetchImageData(for: user.avatarUrl)
                         return (index, user, imageData)
                     }
                 }

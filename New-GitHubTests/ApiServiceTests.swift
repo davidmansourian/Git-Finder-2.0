@@ -121,7 +121,7 @@ final class ApiServiceTests: XCTestCase {
     
     func testFetch_fetchDataType_notNil() async throws {
         do {
-            let result = try await sut.fetchDataType(for: "someURL")
+            let result = try await sut.fetchImageData(for: "someURL")
             XCTAssertNotNil(result)
         } catch {
             XCTFail("Unexpected result")

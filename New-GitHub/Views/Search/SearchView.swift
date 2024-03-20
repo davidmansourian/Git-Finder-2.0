@@ -43,6 +43,8 @@ struct SearchView: View {
             }
         }
         .searchable(text: $searchTerm)
+        .autocorrectionDisabled(true)
+        .textInputAutocapitalization(.never)
         .onChange(of: searchTerm) {
             viewModel.cancelSearchTask()
             callSearch()
@@ -66,7 +68,7 @@ extension SearchView {
         }
         .listStyle(.plain)
         .navigationDestination(for: User.self) { user in
-            ProfileView(apiService: apiService, user: user)
+            ProfileView(apiService: apiService, username: user.username)
         }
     }
     
@@ -96,7 +98,7 @@ extension SearchView {
 }
 
 #Preview {
-    @State var apiService = ApiService()
+    @State var apiService = MockApiService()
     return SearchView(apiService: apiService)
 }
 //

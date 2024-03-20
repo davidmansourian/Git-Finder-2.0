@@ -10,7 +10,13 @@ import SwiftUI
 
 @main
 struct New_GitHubApp: App {
-    @State private var apiService: ApiServing = ApiService()
+    let cacheManager = CacheManager()
+    @State private var apiService: ApiServing
+    
+    init() {
+        self._apiService = State(wrappedValue: ApiService(cacheManager: cacheManager))
+    }
+    
     var body: some Scene {
         WindowGroup {
             SearchView(apiService: apiService)
