@@ -33,9 +33,6 @@ extension ProfileView {
         // I should also cache repo results. I can cache 30 items at a time, and store the key as username_page_1 or something similar. In the api call, I check whether the page number for the username's repo
         // is already cached
         
-        // I should also create thumbnails for the photos that I am showing since they are so small
-        
-        // I should also consider separating image loading to its own manager that holds images similar to this. To manage memory, I can se the imageDatas to nil everytime a new action is performed
         private func handleRepoLoading() {
             Task { [weak self] in
                 guard let self = self else { return }
