@@ -139,20 +139,21 @@
 		DB25BC912B73F6D10039A4ED /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DB3ECC4A2BAECE780080164B /* Cache */,
+				DB3ECC442BAAC8AC0080164B /* CacheManager.swift */,
 				DBEEBB402B763C2E00165EDC /* API */,
 				DBDC95D12B80A8DC00ACDB0F /* Data */,
+				DB3ECC512BAEE3020080164B /* Mocks */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		DB3ECC4A2BAECE780080164B /* Cache */ = {
+		DB3ECC512BAEE3020080164B /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				DB3ECC442BAAC8AC0080164B /* CacheManager.swift */,
+				DBEEBB5C2B7681ED00165EDC /* MockApiService.swift */,
 				DB3ECC482BAECE700080164B /* MockCacheManager.swift */,
 			);
-			path = Cache;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		DB8AB13C2BA73C7100959823 /* Profile */ = {
@@ -202,7 +203,6 @@
 				DBEEBB3E2B763C1500165EDC /* HTTPDataDownloading.swift */,
 				DB25BC932B73F6E10039A4ED /* ApiService.swift */,
 				DBEEBB3C2B7639E100165EDC /* CustomApiError.swift */,
-				DBEEBB5C2B7681ED00165EDC /* MockApiService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
