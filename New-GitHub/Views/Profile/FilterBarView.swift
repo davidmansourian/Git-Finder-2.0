@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct FilterBarView: View {
-    @Binding var filterState: FilterState
+    @Binding var filterState: ProfileView.FilterState
     @Namespace var animation
     
     var body: some View {
         HStack {
-            ForEach(FilterState.allCases, id: \.rawValue) { tab in
+            ForEach(ProfileView.FilterState.allCases, id: \.rawValue) { tab in
                 VStack {
                     Text(tab.title)
                         .font(.subheadline)

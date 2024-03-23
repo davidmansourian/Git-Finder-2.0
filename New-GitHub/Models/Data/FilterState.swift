@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum FilterState: Int, CaseIterable {
-    case all
-    case owner
-    case contributor
-    
-    var title: String {
-        switch self {
-        case .all: return "All repos"
-        case .owner: return "Owned"
-        case .contributor: return "Contributor"
-        }
-    }
-}
+//enum FilterState: Int, CaseIterable {
+//    case all
+//    case owner
+//    case contributor
+//    
+//    var title: String {
+//        switch self {
+//        case .all: return "All repos"
+//        case .owner: return "Owned"
+//        case .contributor: return "Contributor"
+//        }
+//    }
+//}

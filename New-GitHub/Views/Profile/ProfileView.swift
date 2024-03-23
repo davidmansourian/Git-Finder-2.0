@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct ProfileView: View {    
+struct ProfileView: View {
     @State private var filterState: FilterState = .all
+    @State private var sortState: SortState = .originalOrder
     @State private var repoCount = 0
     @State private var showRepositoryDetail = false
     @State private var viewModel: ViewModel
@@ -37,6 +38,22 @@ struct ProfileView: View {
                     FilterBarView(filterState: $filterState)
                     
                     reposList(repos)
+                    
+                    if viewModel.scrollLoading {
+                        ProgressView()
+                    }
+                    
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        toolbarSortMenuView
+                    }
+                }
+                .onChange(of: filterState) {
+                    Task { await viewModel.applyCurrentFilterAndSort(filterState, sortState) }
+                }
+                .onChange(of: sortState) {
+                    Task { await viewModel.applyCurrentFilterAndSort(filterState, sortState)}
                 }
             case .error(let error):
                 ContentUnavailableView("Failed to load repositories",
@@ -52,7 +69,7 @@ struct ProfileView: View {
                 showRepositoryDetail.toggle()
             }
         }
-        .navigationTitle("\(username) - \(Int(repoCount)) related repos")
+        .navigationTitle("\(username) - \(Int(viewModel.repoCount)) related repos")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -71,20 +88,105 @@ private extension ProfileView {
     func reposList(_ repos: [Repository]) -> some View {
         List(repos, id: \.self) { repo in
             Button(action: { showRepositoryDetail.toggle() }, label: {
-                let ownerImage = repoOwnerImage(repo.owner.username)
-                RepositoryCardView(repository: repo, image: ownerImage)
+                RepositoryCardView(repository: repo,
+                                   image: repoOwnerImage(repo.owner.username)
+                )
             })
             .buttonStyle(.plain)
-            
+            .onAppear {
+                if repo == repos.last &&
+                    (filterState == .all || filterState == .owner)
+                {
+                    viewModel.loadingTask?.cancel()
+                    viewModel.scrollRepositories(consider: filterState, and: sortState)
+                }
+            }
         }
         .listStyle(.inset)
-        .onAppear {
-            repoCount = repos.count
-        }
     }
     
     func repoOwnerImage(_ username: String) -> UIImage? {
         avatarLoader.images[username]
+    }
+    
+    var toolbarSortMenuView: some View {
+        Menu {
+            Menu {
+                Button {
+                    handleSortStateSelection(.watchersAscending)
+                } label: {
+                    customMenuLabel("Ascending", isSelected: sortState == .watchersAscending)
+                }
+                
+                Button {
+                    handleSortStateSelection(.watchersDescending)
+                } label: {
+                    customMenuLabel("Descending", isSelected: sortState == .watchersDescending)
+                }
+                
+            } label: {
+                Label("Watchers", systemImage: "eye")
+            }
+            
+            Menu {
+                Button
+                {
+                    handleSortStateSelection(.latest)
+                } label: {
+                    customMenuLabel("Latest", isSelected: sortState == .latest)
+                }
+                
+                Button
+                {
+                    handleSortStateSelection(.oldest)
+                } label: {
+                    customMenuLabel("Oldest", isSelected: sortState == .oldest)
+                }
+                
+            } label: {
+                Label("Date", systemImage: "calendar")
+            }
+            
+        } label: {
+            Label("Sort by", systemImage: "arrow.up.arrow.down")
+        }
+    }
+    
+    @ViewBuilder
+    func customMenuLabel(_ title: String, isSelected: Bool) -> some View {
+        if isSelected {
+            Label(title, systemImage: "checkmark")
+        } else {
+            Text(title)
+        }
+    }
+    
+    func handleSortStateSelection(_ sortState: SortState) {
+        if sortState == self.sortState {
+            self.sortState = .originalOrder
+        } else {
+            self.sortState = sortState
+        }
+    }
+}
+
+extension ProfileView {
+    enum FilterState: Int, CaseIterable {
+        case all
+        case owner
+        case contributor
+        
+        var title: String {
+            switch self {
+            case .all: return "All repos"
+            case .owner: return "Owned"
+            case .contributor: return "Contributor"
+            }
+        }
+    }
+    
+    enum SortState {
+        case watchersAscending, watchersDescending, latest, oldest, originalOrder
     }
 }
 

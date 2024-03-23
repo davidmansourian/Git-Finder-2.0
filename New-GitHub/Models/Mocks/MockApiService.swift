@@ -43,7 +43,7 @@ class MockApiService: ApiServing {
     
     func fetchRepositories(for user: String, pageNumber: Int) async throws -> [Repository] {
         let fakeRepoOwner = Repository.Owner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
-        let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25)
+        let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25, lastUpdated: "2023-09-05T22:41:23Z")
         
         // Using to see shimmer in preview
         //try await Task.sleep(nanoseconds: 3_000_000_000)

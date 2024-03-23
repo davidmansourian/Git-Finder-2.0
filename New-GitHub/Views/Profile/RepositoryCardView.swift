@@ -84,6 +84,6 @@ private extension RepositoryCardView {
 #Preview {
     let mockImage = UIImage(named: "testAvatar")
     let fakeRepoOwner = Repository.Owner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
-    let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25)
+    let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25, lastUpdated: "2023-09-05T22:41:23Z")
     return RepositoryCardView(repository: fakeRepository, image: mockImage)
 }
