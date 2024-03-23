@@ -41,7 +41,7 @@ extension ProfileView {
                 guard let self = self else { return }
                 self.loadingError = nil
                 let repos = await loadRepos()
-                await avatarLoader.loadImageDatas(for: repos, requestedHeight: repoOwnerAvatarHeight)
+                await avatarLoader.loadAvatarImages(for: repos, requestedHeight: repoOwnerAvatarHeight)
                 await updateUserState(repos)
             }
         }
@@ -54,22 +54,6 @@ extension ProfileView {
                 return nil
             }
         }
-        
-//        private func loadImageDatas(for repositories: [Repository]?) async {
-//            guard let repos = repositories else { return }
-//            await withTaskGroup(of: (String, Data).self) { [weak self] taskGroup in
-//                guard let self = self else { return }
-//                for repo in repos {
-//                    let imageUrl = repo.owner.avatarUrl
-//                    await avatarLoader.storeImageDatasIfNecessary(
-//                        for: repo.owner.username,
-//                        with: imageUrl,
-//                        currentView: .profile,
-//                        requestedHeight: repoOwnerAvatarHeight
-//                    )
-//                }
-//            }
-//        }
         
         @MainActor
         private func updateUserState(_ repositories: [Repository]?) async {

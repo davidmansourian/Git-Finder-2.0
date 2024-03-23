@@ -41,7 +41,7 @@ extension SearchView {
             await performSearch(for: searchTerm)
             
             let users = try? await searchTask?.value
-            await avatarLoader.loadImageDatas(for: users, requestedHeight: 32)
+            await avatarLoader.loadAvatarImages(for: users, requestedHeight: 32)
             await updateUserResults(users)
         }
                 
@@ -68,22 +68,6 @@ extension SearchView {
             
             self.searchTask = task
         }
-        
-//        private func loadImageDatas(for userResults: [User]?) async {
-//            guard let users = userResults else { return }
-//            await withTaskGroup(of: (String, Data).self) { [weak self] taskGroup in
-//                guard let self = self else { return }
-//                for user in users {
-//                    let imageUrl = user.avatarUrl
-//                    await avatarLoader.storeImageDatasIfNecessary(
-//                        for: user.username,
-//                        with: imageUrl,
-//                        currentView: .search,
-//                        requestedHeight: profileAvatarHeight
-//                    )
-//                }
-//            }
-//        }
         
         private func wasTaskCancelled(_ error: Error) -> Bool {
             error.localizedDescription == CustomApiError.unknownError("cancelled").localizedDescription || error.localizedDescription == "cancelled"

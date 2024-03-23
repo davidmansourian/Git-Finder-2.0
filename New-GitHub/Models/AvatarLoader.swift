@@ -22,13 +22,13 @@ public final class AvatarLoader {
         self.apiService = apiService
     }
     
-    public func loadImageDatas(for objects: [Any]?, requestedHeight: CGFloat) async {
+    public func loadAvatarImages(for objects: [Any]?, requestedHeight: CGFloat) async {
         guard let objects = objects else { return }
         await withTaskGroup(of: (String, Data).self) { [weak self] taskGroup in
             guard let self = self else { return }
             for object in objects {
                 if let (avatarUrl, username) = determineGenericObjectType(object: object) {
-                    await storeImageDatasIfNecessary(
+                    await storeImagesIfNecessary(
                         for: username,
                         with: avatarUrl,
                         currentView: .search,
@@ -40,7 +40,7 @@ public final class AvatarLoader {
     }
     
     @MainActor
-    private func storeImageDatasIfNecessary(for username: String,
+    private func storeImagesIfNecessary(for username: String,
                                            with imageUrl: String,
                                            currentView: CurrentView,
                                            requestedHeight: CGFloat) 
