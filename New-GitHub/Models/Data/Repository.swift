@@ -14,6 +14,7 @@ struct Repository: Codable, Hashable, Equatable {
     let starGazersCount: Int
     let watchersCount: Int
     let forksCount: Int
+    let lastUpdated: String
     
     enum CodingKeys: String, CodingKey {
         case name = "full_name"
@@ -21,6 +22,7 @@ struct Repository: Codable, Hashable, Equatable {
         case starGazersCount = "stargazers_count"
         case watchersCount = "watchers_count"
         case forksCount = "forks_count"
+        case lastUpdated = "updated_at"
     }
     
     struct Owner: Codable, Hashable, Equatable {
