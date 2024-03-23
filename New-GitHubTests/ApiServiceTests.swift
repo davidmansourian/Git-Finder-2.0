@@ -10,11 +10,11 @@ import XCTest
 
 final class ApiServiceTests: XCTestCase {
     var sut: MockApiService!
-    var dependency: MockCacheManager!
+    var cacheManager: MockCacheManager!
     
     override func setUp() {
-        dependency = MockCacheManager()
-        sut = MockApiService(cacheManager: dependency)
+        cacheManager = MockCacheManager()
+        sut = MockApiService(cacheManager: cacheManager)
     }
     
     func testFetch_fetchUserResults_resultsCountIsNine() async throws {
