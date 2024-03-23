@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadingListemItemView: View {
+struct ProfileResultItemSkeletonView: View {
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack {
@@ -35,5 +35,5 @@ struct LoadingListemItemView: View {
 }
 
 #Preview {
-    LoadingListemItemView()
+    ProfileResultItemSkeletonView()
 }

@@ -78,8 +78,8 @@ extension SearchView {
     }
     
     private var loadingList: some View {
-        List(1...15, id: \.self) { _ in
-            LoadingListemItemView()
+        List(1...20, id: \.self) { _ in
+            ProfileResultItemSkeletonView()
                 .listRowSeparator(.hidden)
         }
         .shimmering()

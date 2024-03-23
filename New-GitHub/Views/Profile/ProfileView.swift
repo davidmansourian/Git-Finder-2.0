@@ -50,10 +50,10 @@ struct ProfileView: View {
                     }
                 }
                 .onChange(of: filterState) {
-                    Task { await viewModel.applyCurrentFilterAndSort(filterState, sortState) }
+                    Task { await viewModel.setUserResultsWithFilterAndSort(filterState, sortState) }
                 }
                 .onChange(of: sortState) {
-                    Task { await viewModel.applyCurrentFilterAndSort(filterState, sortState)}
+                    Task { await viewModel.setUserResultsWithFilterAndSort(filterState, sortState)}
                 }
             case .error(let error):
                 ContentUnavailableView("Failed to load repositories",

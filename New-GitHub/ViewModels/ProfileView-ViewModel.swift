@@ -12,10 +12,10 @@ extension ProfileView {
     public final class ViewModel {
         private let apiService: ApiServing
         private let avatarLoader: AvatarLoader
+        private let repoOwnerAvatarHeight: CGFloat = 18
         
         private var loadingError: String?
         private var repositories: [Repository]?
-        private var repoOwnerAvatarHeight: CGFloat = 18
         private var repoResultsPageNumber = 1
         private var username: String
         
@@ -42,7 +42,7 @@ extension ProfileView {
                 self.loadingError = nil
                 do {
                     self.repositories = try await fetchReposAndAvatars()
-                    await applyCurrentFilterAndSort(.all, .originalOrder)
+                    await setUserResultsWithFilterAndSort(.all, .originalOrder)
                 } catch {
                     self.loadingError = error.localizedDescription
                 }
@@ -66,7 +66,7 @@ extension ProfileView {
                     repoResultsPageNumber += 1
                     let newRepos = try await self.fetchReposAndAvatars()
                     self.repositories?.append(contentsOf: newRepos)
-                    await applyCurrentFilterAndSort(filterState, sortState)
+                    await setUserResultsWithFilterAndSort(filterState, sortState)
                 } catch {
                     //                    print("Error scrolling repositories: \(error.localizedDescription)")
                 }
@@ -79,7 +79,7 @@ extension ProfileView {
             return repos.count % 30 == 0 // If total repo count is not a multiple of 30, then I am on the last page
         }
         
-        public func applyCurrentFilterAndSort(_ filterState: FilterState, _ sortState: SortState) async {
+        public func setUserResultsWithFilterAndSort(_ filterState: FilterState, _ sortState: SortState) async {
             guard let filteredRepos = filterRepos(filterState) else { return }
             
             let filteredAndSortedRepos = sortRepos(sortState: sortState, filteredRepos: filteredRepos)
