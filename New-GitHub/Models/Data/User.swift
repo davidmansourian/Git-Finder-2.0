@@ -7,14 +7,13 @@
 
 import Foundation
 
-public struct User: Codable, Identifiable, Hashable {
-    public let id: Int?
+struct User: Codable, Identifiable, Hashable {
+    let id: Int?
     let username: String
     let avatarUrl: String
     let url: String
     let reposUrl: String
     let type: String
-    var avatarImageData: Data?
     
     enum CodingKeys: String, CodingKey {
         case username = "login"

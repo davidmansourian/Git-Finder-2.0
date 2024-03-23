@@ -14,13 +14,17 @@ struct ProfileView: View {
     @State private var viewModel: ViewModel
     
     private let apiService: ApiServing
+    private let avatarLoader: AvatarLoader
     private let username: String
     
-    init(apiService: ApiServing, username: String) {
+    init(apiService: ApiServing, avatarLoader: AvatarLoader, username: String) {
         self.apiService = apiService
         self.username = username
+        self.avatarLoader = avatarLoader
         self._viewModel = State(wrappedValue: ViewModel(apiService: apiService,
-                                                        username: username))
+                                                        avatarLoader: avatarLoader,
+                                                        username: username)
+        )
     }
     
     var body: some View {
@@ -67,8 +71,8 @@ private extension ProfileView {
     func reposList(_ repos: [Repository]) -> some View {
         List(repos, id: \.self) { repo in
             Button(action: { showRepositoryDetail.toggle() }, label: {
-                let ownerImageData = repoOwnerImageData(repo.owner.username)
-                RepositoryCardView(repository: repo, imageData: ownerImageData)
+                let ownerImage = repoOwnerImage(repo.owner.username)
+                RepositoryCardView(repository: repo, image: ownerImage)
             })
             .buttonStyle(.plain)
             
@@ -79,16 +83,15 @@ private extension ProfileView {
         }
     }
     
-    func repoOwnerImageData(_ username: String) -> Data? {
-        viewModel.imageDatas[username]
+    func repoOwnerImage(_ username: String) -> UIImage? {
+        avatarLoader.images[username]
     }
 }
 
 #Preview {
     let cacheManager = MockCacheManager()
     let apiService = MockApiService(cacheManager: cacheManager)
-    let avatar = UIImage(named: "testAvataar")
-    let avatarData = avatar?.jpegData(compressionQuality: 0.9)
-    let fakeUser = User(id: 1, username: "davidmansourian", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", url: "https://api.github.com/users/davidmansourian", reposUrl: "", type: "User", avatarImageData: avatarData)
-    return NavigationStack{ProfileView(apiService: apiService, username: fakeUser.username)}
+    let fakeUser = User(id: 1, username: "davidmansourian", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", url: "https://api.github.com/users/davidmansourian", reposUrl: "", type: "User")
+    @State var avatarLoader = AvatarLoader(apiService: apiService)
+    return NavigationStack{ProfileView(apiService: apiService, avatarLoader: avatarLoader, username: fakeUser.username)}
 }
