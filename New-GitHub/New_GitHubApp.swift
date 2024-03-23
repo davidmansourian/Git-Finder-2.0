@@ -10,11 +10,11 @@ import SwiftUI
 
 @main
 struct New_GitHubApp: App {
-    let cacheManager = CacheManager()
-    @State private var apiService: ApiServing
+    private let cacheManager: CacheManaging = CacheManager()
+    private var apiService: ApiServing
     
     init() {
-        self._apiService = State(wrappedValue: ApiService(cacheManager: cacheManager))
+        self.apiService = ApiService(cacheManager: cacheManager)
     }
     
     var body: some Scene {

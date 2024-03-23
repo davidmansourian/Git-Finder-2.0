@@ -13,7 +13,7 @@ extension SearchView {
         private let apiService: ApiServing
         
         private(set) var searchTask: Task<[User]?, Error>?
-        private(set) var viewState: ViewState = .idle
+        private(set) var state: State = .idle
         
         private var searchError: String?
         
@@ -29,11 +29,11 @@ extension SearchView {
             searchError = nil
             
             guard !searchTerm.isEmpty else {
-                self.viewState = .idle
+                self.state = .idle
                 return
             }
             
-            self.viewState = .loading
+            self.state = .loading
             
             await performSearch(for: searchTerm)
             await updateUserResults()
@@ -51,7 +51,7 @@ extension SearchView {
                 } catch {
                     /// Check so that error is not task cancelled
                     if self?.wasTaskCancelled(error) == false {
-                        self?.searchError = (error as? CustomApiError)?.customDescription ?? error.localizedDescription
+                        self?.searchError = error.localizedDescription
                     } else {
                         print("Task was cancelled due to updated searchterm. Hiding error from user.")
                     }
@@ -91,22 +91,22 @@ extension SearchView {
         }
         
         private func wasTaskCancelled(_ error: Error) -> Bool {
-            ((error as? CustomApiError)?.customDescription == CustomApiError.unknownError("cancelled").customDescription) || (error.localizedDescription == "cancelled")
+            error.localizedDescription == CustomApiError.unknownError("cancelled").localizedDescription || error.localizedDescription == "cancelled"
         }
 
         @MainActor
         private func updateUserResults() async {
             if let users = try? await searchTask?.value {
-                self.viewState = .loaded(users)
+                self.state = .loaded(users)
             } else if let error = searchError {
-                self.viewState = .error(error)
+                self.state = .error(error)
             }
         }
     }
 }
 
 extension SearchView.ViewModel {
-    enum ViewState: Equatable {
+    enum State: Equatable {
         case idle
         case loading
         case loaded([User])

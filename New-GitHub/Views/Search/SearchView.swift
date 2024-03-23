@@ -24,7 +24,7 @@ struct SearchView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            switch viewModel.viewState {
+            switch viewModel.state {
             case .idle:
                 /// Search history
                 usersList([])
@@ -98,7 +98,8 @@ extension SearchView {
 }
 
 #Preview {
-    @State var apiService = MockApiService()
+    let cacheManager = MockCacheManager()
+    let apiService = MockApiService(cacheManager: cacheManager)
     return SearchView(apiService: apiService)
 }
 //

@@ -7,14 +7,14 @@
 
 import Foundation
 
-public enum CustomApiError: Error {
+public enum CustomApiError: LocalizedError {
     case badURL, badServerResponse
     case parsingError(String)
     case invalidStatusCode(Int)
     case unknownError(String)
     case invalidData
     
-    var customDescription: String {
+    public var errorDescription: String {
         switch self {
         case .badURL:
             return "Bad URL"

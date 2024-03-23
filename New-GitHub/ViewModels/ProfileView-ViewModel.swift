@@ -17,7 +17,7 @@ extension ProfileView {
         private var loadingError: String?
         
         private(set) var imageDatas = [String: Data]()
-        private(set) var viewState: ViewState = .loading
+        private(set) var state: State = .loading
         
         init(apiService: ApiServing, username: String) {
             self.apiService = apiService
@@ -32,6 +32,8 @@ extension ProfileView {
         // is already cached
         
         // I should also create thumbnails for the photos that I am showing since they are so small
+        
+        // I should also consider separating image loading to its own manager that holds images similar to this. To manage memory, I can se the imageDatas to nil everytime a new action is performed
         private func handleRepoLoading() {
             Task { [weak self] in
                 guard let self = self else { return }
@@ -46,7 +48,7 @@ extension ProfileView {
             do {
                 return try await apiService.fetchRepositories(for: username, pageNumber: repoResultsPageNumber)
             } catch {
-                self.loadingError = (error as? CustomApiError)?.customDescription ?? error.localizedDescription
+                self.loadingError = error.localizedDescription
                 return nil
             }
         }
@@ -81,16 +83,16 @@ extension ProfileView {
         @MainActor
         private func updateUserState(_ repositories: [Repository]?) async {
             if let repos = repositories {
-                self.viewState = .loaded(repos)
+                self.state = .loaded(repos)
             } else if let error = loadingError {
-                self.viewState = .error(error)
+                self.state = .error(error)
             }
         }
     }
 }
 
 extension ProfileView.ViewModel {
-    enum ViewState: Equatable {
+    enum State: Equatable {
         case loading
         case loaded([Repository])
         case error(String)

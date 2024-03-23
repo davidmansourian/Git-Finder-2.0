@@ -87,6 +87,5 @@ private extension RepositoryCardView {
     let mockImageData = mockImage?.jpegData(compressionQuality: 1.0)
     let fakeRepoOwner = RepositoryOwner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
     let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25)
-    let mockApiService = MockApiService()
     return RepositoryCardView(repository: fakeRepository, imageData: mockImageData ?? Data())
 }

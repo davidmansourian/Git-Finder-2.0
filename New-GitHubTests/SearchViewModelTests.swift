@@ -12,28 +12,30 @@ import XCTest
 final class SearchViewModelTests: XCTestCase {
     var sut: SearchView.ViewModel!
     var apiService: MockApiService!
+    var cacheManager: MockCacheManager!
     
     override func setUp() {
-        apiService = MockApiService()
+        cacheManager = MockCacheManager()
+        apiService = MockApiService(cacheManager: cacheManager)
         sut = SearchView.ViewModel(apiService: apiService)
     }
     
     func testSearch_emptySearchTerm_viewStateIsIdle() async {
         await sut.handleSearch(for: "")
         
-        XCTAssertTrue(sut.viewState == .idle)
+        XCTAssertTrue(sut.state == .idle)
     }
     
     func testSearch_withSearchTerm_usersHasMockData() async {
         await sut.handleSearch(for: "apple")
         
-        switch sut.viewState {
+        switch sut.state {
         case .error(_):
-            XCTFail("viewState should not be error")
+            XCTFail("state should not be error")
         case .idle:
-            XCTFail("viewState should not be idle")
+            XCTFail("state should not be idle")
         case .loading:
-            XCTFail("viewState should not be loading")
+            XCTFail("state should not be loading")
         case .loaded(let users):
             XCTAssertEqual(users.first?.username, "apple")
         }
@@ -42,13 +44,13 @@ final class SearchViewModelTests: XCTestCase {
     func testSearch_withSearchTerm_avatarDataIsNotNil() async {
         await sut.handleSearch(for: "apple")
         
-        switch sut.viewState {
+        switch sut.state {
         case .error(_):
-            XCTFail("viewState should not be error")
+            XCTFail("state should not be error")
         case .idle:
-            XCTFail("viewState should not be idle")
+            XCTFail("state should not be idle")
         case .loading:
-            XCTFail("viewState should not be loading")
+            XCTFail("state should not be loading")
         case .loaded(let users):
             XCTAssertNotNil(users.first?.avatarImageData)
         }
@@ -74,8 +76,8 @@ final class SearchViewModelTests: XCTestCase {
         
         await sut.handleSearch(for: "apple")
         
-        let correctError = CustomApiError.badServerResponse.customDescription
-        XCTAssertEqual(sut.viewState, SearchView.ViewModel.ViewState.error(correctError))
+        let correctError = CustomApiError.badServerResponse.localizedDescription
+        XCTAssertEqual(sut.state, SearchView.ViewModel.State.error(correctError))
     }
     
     func testSearch_taskWasCancelled_errorIsSkipped() async {
@@ -83,6 +85,6 @@ final class SearchViewModelTests: XCTestCase {
         
         await sut.handleSearch(for: "apple")
         
-        XCTAssertEqual(sut.viewState, SearchView.ViewModel.ViewState.loading)
+        XCTAssertEqual(sut.state, SearchView.ViewModel.State.loading)
     }
 }

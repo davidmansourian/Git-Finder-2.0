@@ -10,9 +10,11 @@ import XCTest
 
 final class ApiServiceTests: XCTestCase {
     var sut: MockApiService!
+    var dependency: MockCacheManager!
     
     override func setUp() {
-        sut = MockApiService()
+        dependency = MockCacheManager()
+        sut = MockApiService(cacheManager: dependency)
     }
     
     func testFetch_fetchUserResults_resultsCountIsNine() async throws {
@@ -53,9 +55,7 @@ final class ApiServiceTests: XCTestCase {
         do {
             _ = try await sut.fetchUserResult(for: "apple")
         } catch {
-            if let error = error as? CustomApiError {
-                XCTAssertEqual(error.customDescription, CustomApiError.badURL.customDescription)
-            }
+            XCTAssertEqual(error.localizedDescription, CustomApiError.badURL.localizedDescription)
         }
     }
     
@@ -65,9 +65,9 @@ final class ApiServiceTests: XCTestCase {
         do {
             _ = try await sut.fetchUserResult(for: "apple")
         } catch {
-            if let error = error as? CustomApiError {
-                XCTAssertEqual(error.customDescription, CustomApiError.badServerResponse.customDescription)
-            }
+            print("error localizedDescription: \(error.localizedDescription)")
+            print("customapierror, badserveresponse localizedDescription: \(CustomApiError.badServerResponse.localizedDescription)")
+            XCTAssertEqual(error.localizedDescription, CustomApiError.badServerResponse.localizedDescription)
         }
     }
     
@@ -77,9 +77,7 @@ final class ApiServiceTests: XCTestCase {
         do {
             _ = try await sut.fetchUserResult(for: "apple")
         } catch {
-            if let error = error as? CustomApiError {
-                XCTAssertEqual(error.customDescription, CustomApiError.invalidStatusCode(404).customDescription)
-            }
+            XCTAssertEqual(error.localizedDescription, CustomApiError.invalidStatusCode(404).localizedDescription)
         }
     }
     
@@ -89,9 +87,7 @@ final class ApiServiceTests: XCTestCase {
         do {
             _ = try await sut.fetchUserResult(for: "apple")
         } catch {
-            if let error = error as? CustomApiError {
-                XCTAssertEqual(error.customDescription, CustomApiError.parsingError("Couldn't parse").customDescription)
-            }
+            XCTAssertEqual(error.localizedDescription, CustomApiError.parsingError("Couldn't parse").localizedDescription)
         }
     }
     
@@ -101,9 +97,7 @@ final class ApiServiceTests: XCTestCase {
         do {
             _ = try await sut.fetchUserResult(for: "apple")
         } catch {
-            if let error = error as? CustomApiError {
-                XCTAssertEqual(error.customDescription, CustomApiError.unknownError("Unknown").customDescription)
-            }
+            XCTAssertEqual(error.localizedDescription, CustomApiError.unknownError("Unknown").localizedDescription)
         }
     }
     
@@ -113,9 +107,7 @@ final class ApiServiceTests: XCTestCase {
         do {
             _ = try await sut.fetchUserResult(for: "apple")
         } catch {
-            if let error = error as? CustomApiError {
-                XCTAssertEqual(error.customDescription, CustomApiError.invalidData.customDescription)
-            }
+            XCTAssertEqual(error.localizedDescription, CustomApiError.invalidData.localizedDescription)
         }
     }
     
@@ -123,6 +115,17 @@ final class ApiServiceTests: XCTestCase {
         do {
             let result = try await sut.fetchImageData(for: "someURL")
             XCTAssertNotNil(result)
+        } catch {
+            XCTFail("Unexpected result")
+        }
+    }
+    
+    func testFetch_fetchDataTypeFromCache_successFromCache() async throws {
+        do {
+            let _ = try await sut.fetchImageData(for: "someURL")
+            XCTAssertFalse(sut.latestFetchWasFromCache)
+            let _ = try await sut.fetchImageData(for: "someURL")
+            XCTAssertTrue(sut.latestFetchWasFromCache)
         } catch {
             XCTFail("Unexpected result")
         }
@@ -141,6 +144,15 @@ final class ApiServiceTests: XCTestCase {
         do {
             let result = try await sut.fetchUserInfo(for: "someURL")
             XCTAssertEqual(result.username, "Test")
+        } catch {
+            XCTFail("Unexpected result")
+        }
+    }
+    
+    func testFetch_fetchRepositories_repoOwnerIsPelle() async throws {
+        do {
+            let result = try await sut.fetchRepositories(for: "someUser", pageNumber: 1)
+            XCTAssertEqual(result.first?.owner.username, "Pelle")
         } catch {
             XCTFail("Unexpected result")
         }

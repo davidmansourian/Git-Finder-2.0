@@ -25,7 +25,7 @@ struct ProfileView: View {
     
     var body: some View {
         Group {
-            switch viewModel.viewState {
+            switch viewModel.state {
             case .loading:
                 skeletonLoadingListView
             case .loaded(let repos):
@@ -85,7 +85,8 @@ private extension ProfileView {
 }
 
 #Preview {
-    @State var apiService = MockApiService()
+    let cacheManager = MockCacheManager()
+    let apiService = MockApiService(cacheManager: cacheManager)
     let avatar = UIImage(named: "testAvataar")
     let avatarData = avatar?.jpegData(compressionQuality: 0.9)
     let fakeUser = User(id: 1, username: "davidmansourian", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", url: "https://api.github.com/users/davidmansourian", reposUrl: "", type: "User", avatarImageData: avatarData)

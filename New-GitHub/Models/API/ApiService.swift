@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 protocol ApiServing {
-    var cacheManager: CacheManager { get }
+    var cacheManager: CacheManaging { get }
     func fetchUserResult(for searchTerm: String) async throws -> UserSearchResult
     func fetchImageData(for urlString: String) async throws -> Data
     func fetchUserInfo(for user: String) async throws -> User
@@ -17,9 +17,9 @@ protocol ApiServing {
 }
 
 struct ApiService: HTTPDataDownloading, ApiServing {
-    var cacheManager: CacheManager
+    var cacheManager: CacheManaging
     
-    init(cacheManager: CacheManager) {
+    init(cacheManager: CacheManaging) {
         self.cacheManager = cacheManager
     }
     
