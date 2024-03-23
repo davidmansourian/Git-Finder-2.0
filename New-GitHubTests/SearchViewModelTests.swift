@@ -13,11 +13,13 @@ final class SearchViewModelTests: XCTestCase {
     var sut: SearchView.ViewModel!
     var apiService: MockApiService!
     var cacheManager: MockCacheManager!
+    var avatarLoader: AvatarLoader!
     
     override func setUp() {
         cacheManager = MockCacheManager()
         apiService = MockApiService(cacheManager: cacheManager)
-        sut = SearchView.ViewModel(apiService: apiService)
+        avatarLoader = AvatarLoader(apiService: apiService)
+        sut = SearchView.ViewModel(apiService: apiService, avatarLoader: avatarLoader)
     }
     
     func testSearch_emptySearchTerm_viewStateIsIdle() async {
@@ -38,21 +40,6 @@ final class SearchViewModelTests: XCTestCase {
             XCTFail("state should not be loading")
         case .loaded(let users):
             XCTAssertEqual(users.first?.username, "apple")
-        }
-    }
-    
-    func testSearch_withSearchTerm_avatarDataIsNotNil() async {
-        await sut.handleSearch(for: "apple")
-        
-        switch sut.state {
-        case .error(_):
-            XCTFail("state should not be error")
-        case .idle:
-            XCTFail("state should not be idle")
-        case .loading:
-            XCTFail("state should not be loading")
-        case .loaded(let users):
-            XCTAssertNotNil(users.first?.avatarImageData)
         }
     }
     

@@ -69,8 +69,8 @@ final class CacheManagerTests: XCTestCase {
     }
     
     func testSetGet_setDataFromRepoArray_getSuccess() {
-        let repository1 = Repository(name: "Test Repo 1", owner: RepositoryOwner(username: "test", avatarUrl: "test"), description: "test description", starGazersCount: 1, watchersCount: 1, forksCount: 1)
-        let repository2 = Repository(name: "Test Repo 2", owner: RepositoryOwner(username: "test", avatarUrl: "test"), description: "test description", starGazersCount: 2, watchersCount: 1, forksCount: 1)
+        let repository1 = Repository(name: "Test Repo 1", owner: Repository.Owner(username: "test", avatarUrl: "test"), description: "test description", starGazersCount: 1, watchersCount: 1, forksCount: 1)
+        let repository2 = Repository(name: "Test Repo 2", owner: Repository.Owner(username: "test", avatarUrl: "test"), description: "test description", starGazersCount: 2, watchersCount: 1, forksCount: 1)
         
         let repositories: [Repository] = [repository1, repository2]
         

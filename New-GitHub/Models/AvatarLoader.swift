@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-// Probably no need to implement a protocol for this class since as it is?
+// Probably no need to implement a protocol for this class since as it is testable?
 
 @Observable
 public final class AvatarLoader {
@@ -41,9 +41,9 @@ public final class AvatarLoader {
     
     @MainActor
     private func storeImagesIfNecessary(for username: String,
-                                           with imageUrl: String,
-                                           currentView: CurrentView,
-                                           requestedHeight: CGFloat) 
+                                        with imageUrl: String,
+                                        currentView: CurrentView,
+                                        requestedHeight: CGFloat)
     async {
         resetImageDatasIfNecessary(currentView)
         
