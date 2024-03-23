@@ -10,14 +10,16 @@ import SwiftUI
 
 struct SearchView: View {
     private let apiService: ApiServing
+    private let avatarLoader: AvatarLoader
     
     @State private var path = NavigationPath()
     @State private var viewModel: ViewModel
     @State private var searchTerm = ""
     
-    init(apiService: ApiServing) {
+    init(apiService: ApiServing, avatarLoader: AvatarLoader) {
         self.apiService = apiService
-        self._viewModel = State(wrappedValue: ViewModel(apiService: apiService))
+        self.avatarLoader = avatarLoader
+        self._viewModel = State(wrappedValue: ViewModel(apiService: apiService, avatarLoader: avatarLoader))
         
         print("did init view")
     }
@@ -62,13 +64,16 @@ extension SearchView {
     private func usersList(_ users: [User]) -> some View {
         List(users, id: \.username) { user in
             NavigationLink(value: user) {
-                ProfileResultItemView(user: user)
+                ProfileResultItemView(username: user.username,
+                                      userType: user.type,
+                                      image: avatarLoader.images[user.username]
+                )
             }
             .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
         .navigationDestination(for: User.self) { user in
-            ProfileView(apiService: apiService, username: user.username)
+            ProfileView(apiService: apiService, avatarLoader: avatarLoader, username: user.username)
         }
     }
     
@@ -97,9 +102,11 @@ extension SearchView {
     }
 }
 
+
 #Preview {
     let cacheManager = MockCacheManager()
     let apiService = MockApiService(cacheManager: cacheManager)
-    return SearchView(apiService: apiService)
+    @State var avatarLoader = AvatarLoader(apiService: apiService)
+    return SearchView(apiService: apiService, avatarLoader: avatarLoader)
 }
 //

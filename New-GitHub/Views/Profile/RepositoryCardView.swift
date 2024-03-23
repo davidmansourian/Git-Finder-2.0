@@ -9,11 +9,11 @@ import SwiftUI
 
 struct RepositoryCardView: View {
     let repository: Repository
-    let imageData: Data?
+    let image: UIImage?
     
-    init(repository: Repository, imageData: Data?) {
+    init(repository: Repository, image: UIImage?) {
         self.repository = repository
-        self.imageData = imageData
+        self.image = image
     }
     
     var body: some View {
@@ -66,8 +66,7 @@ private extension RepositoryCardView {
     }
     
     var avatarImage: some View {
-        if let avatarImageData = imageData,
-           let avatarUiImage = UIImage(data: avatarImageData) {
+        if let avatarUiImage = image {
             let image = Image(uiImage: avatarUiImage)
                 .resizable()
                 .scaledToFit()
@@ -84,8 +83,7 @@ private extension RepositoryCardView {
 
 #Preview {
     let mockImage = UIImage(named: "testAvatar")
-    let mockImageData = mockImage?.jpegData(compressionQuality: 1.0)
-    let fakeRepoOwner = RepositoryOwner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
+    let fakeRepoOwner = Repository.Owner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
     let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25)
-    return RepositoryCardView(repository: fakeRepository, imageData: mockImageData ?? Data())
+    return RepositoryCardView(repository: fakeRepository, image: mockImage)
 }

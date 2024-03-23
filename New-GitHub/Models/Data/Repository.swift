@@ -9,7 +9,7 @@ import Foundation
 
 struct Repository: Codable, Hashable, Equatable {
     let name: String
-    let owner: RepositoryOwner
+    let owner: Owner
     let description: String?
     let starGazersCount: Int
     let watchersCount: Int
@@ -23,16 +23,15 @@ struct Repository: Codable, Hashable, Equatable {
         case forksCount = "forks_count"
     }
     
-}
-
-struct RepositoryOwner: Codable, Hashable, Equatable {
-    let username: String
-    let avatarUrl: String
-    
-    enum CodingKeys: String, CodingKey {
-        case username = "login"
-        case avatarUrl = "avatar_url"
+    struct Owner: Codable, Hashable, Equatable {
+        let username: String
+        let avatarUrl: String
+        
+        enum CodingKeys: String, CodingKey {
+            case username = "login"
+            case avatarUrl = "avatar_url"
+        }
     }
+    
 }
-
 
