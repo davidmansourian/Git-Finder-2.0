@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @State private var filterState: FilterState = .all
     @State private var sortState: SortState = .originalOrder
-    @State private var showRepositoryDetail = false
+    @State private var pickedRepository: Repository?
     @State private var viewModel: ViewModel
     
     private let apiService: ApiServing
@@ -21,9 +21,12 @@ struct ProfileView: View {
         self.apiService = apiService
         self.username = username
         self.avatarLoader = avatarLoader
-        self._viewModel = State(wrappedValue: ViewModel(apiService: apiService,
-                                                        avatarLoader: avatarLoader,
-                                                        username: username)
+        self._viewModel = State(
+            wrappedValue: ViewModel(
+                apiService: apiService,
+                avatarLoader: avatarLoader,
+                username: username
+            )
         )
     }
     
@@ -57,16 +60,21 @@ struct ProfileView: View {
             case .error(let error):
                 ContentUnavailableView("Failed to load repositories",
                                        systemImage: "exclamationmark.bubble.fill",
-                                       description: Text("Couldn't load repositories: \(error)")
+                                       description: Text(error)
                 )
             }
         }
-        .fullScreenCover(isPresented: $showRepositoryDetail) {
-            Text("This is repository detail")
-            
-            Button("Dismiss") {
-                showRepositoryDetail.toggle()
-            }
+        .fullScreenCover(item: $pickedRepository) {
+            pickedRepository = nil
+        } content: { repo in
+            RepositoryDetailView(
+                apiService: apiService,
+                repository: repo,
+                avatarLoader: avatarLoader,
+                image: repoOwnerImage(
+                    repo.owner.username
+                )
+            )
         }
         .navigationTitle("\(username) - \(Int(viewModel.repoCount)) related repos")
         .navigationBarTitleDisplayMode(.inline)
@@ -86,7 +94,7 @@ private extension ProfileView {
     
     func reposList(_ repos: [Repository]) -> some View {
         List(repos, id: \.self) { repo in
-            Button(action: { showRepositoryDetail.toggle() }, label: {
+            Button(action: { pickedRepository = repo }, label: {
                 RepositoryCardView(image: repoOwnerImage(repo.owner.username),
                                    mainProfileUsername: username,
                                    repository: repo

@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Repository: Codable, Hashable, Equatable {
+struct Repository: Codable, Hashable, Equatable, Identifiable {
+    let id = UUID().uuidString
     let name: String
     let owner: Owner
     let description: String?
@@ -15,6 +16,7 @@ struct Repository: Codable, Hashable, Equatable {
     let watchersCount: Int
     let forksCount: Int
     let lastUpdated: String
+    let defaultBranch: String
     
     enum CodingKeys: String, CodingKey {
         case name = "full_name"
@@ -23,6 +25,7 @@ struct Repository: Codable, Hashable, Equatable {
         case watchersCount = "watchers_count"
         case forksCount = "forks_count"
         case lastUpdated = "updated_at"
+        case defaultBranch = "default_branch"
     }
     
     struct Owner: Codable, Hashable, Equatable {

@@ -74,6 +74,8 @@ struct AvatarLoader {
             return (user.avatarUrl, user.username)
         } else if let repo = object as? Repository {
             return (repo.owner.avatarUrl, repo.owner.username)
+        } else if let contributor = object as? Contributor {
+            return (contributor.avatarUrl, contributor.username)
         }
         
         return nil

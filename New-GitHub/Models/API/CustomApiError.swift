@@ -14,7 +14,7 @@ public enum CustomApiError: LocalizedError {
     case unknownError(String)
     case invalidData
     
-    public var errorDescription: String {
+    public var errorDescription: String? {
         switch self {
         case .badURL:
             return "Bad URL"
@@ -38,7 +38,7 @@ public enum CustomApiError: LocalizedError {
         case 401:
             return "Unauthorized"
         case 403:
-            return "Limit reached. Wait a moment and try again."
+            return "API rate limit reached. Wait a moment and try again."
         case 404:
             return "Not Found"
         case 500:

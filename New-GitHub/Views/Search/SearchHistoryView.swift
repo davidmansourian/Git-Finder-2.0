@@ -50,7 +50,7 @@ struct SearchHistoryView: View {
                     }
                 }
             } else {
-                ContentUnavailableView("Search for users", systemImage: "magnifyingglass", description: Text("Search for users in the searchbar above"))
+                ContentUnavailableView("Search for users", systemImage: "magnifyingglass", description: Text("Search for users in the search bar above"))
             }
         }
         .navigationTitle("Git Finder 2.0")

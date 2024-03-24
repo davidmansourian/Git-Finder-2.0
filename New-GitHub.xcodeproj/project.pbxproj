@@ -28,9 +28,18 @@
 		DB3ECC6B2BB054190080164B /* MockReposData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC692BB054190080164B /* MockReposData.swift */; };
 		DB3ECC6C2BB059C30080164B /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE75CE52B83DF4400B998E8 /* Repository.swift */; };
 		DB3ECC712BB064BD0080164B /* SearchHistoryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC702BB064BD0080164B /* SearchHistoryManagerTests.swift */; };
-		DB3ECC742BB06D1D0080164B /* GitLangColors.json in Resources */ = {isa = PBXBuildFile; fileRef = DB3ECC732BB06D1D0080164B /* GitLangColors.json */; };
 		DB3ECC762BB06D530080164B /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC752BB06D530080164B /* ColorExtension.swift */; };
 		DB3ECC782BB06DAC0080164B /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */; };
+		DB3ECC7A2BB071AB0080164B /* RepositoryDetailView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC792BB071AB0080164B /* RepositoryDetailView-ViewModel.swift */; };
+		DB3ECC7E2BB07BDF0080164B /* RepoLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC7D2BB07BDF0080164B /* RepoLanguage.swift */; };
+		DB3ECC802BB07D890080164B /* GitLangColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC7F2BB07D890080164B /* GitLangColors.swift */; };
+		DB3ECC852BB084960080164B /* RepositoryLanguagesChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC842BB084960080164B /* RepositoryLanguagesChartView.swift */; };
+		DB3ECC872BB0864B0080164B /* RepositoryLanguagesChartSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC862BB0864B0080164B /* RepositoryLanguagesChartSkeletonView.swift */; };
+		DB3ECC892BB0920D0080164B /* Contributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC882BB0920D0080164B /* Contributor.swift */; };
+		DB3ECC8D2BB0A5690080164B /* RepositoryContributorsAndReadmeSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC8C2BB0A5690080164B /* RepositoryContributorsAndReadmeSkeletonView.swift */; };
+		DB3ECC8F2BB0A5DA0080164B /* IndexedAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC8E2BB0A5DA0080164B /* IndexedAvatar.swift */; };
+		DB3ECC912BB0A7D30080164B /* RepositoryContributorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC902BB0A7D30080164B /* RepositoryContributorRowView.swift */; };
+		DB3ECC952BB0AE5A0080164B /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC942BB0AE5A0080164B /* SFSafariView.swift */; };
 		DB8AB13E2BA73C8900959823 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13D2BA73C8900959823 /* ProfileView.swift */; };
 		DB8AB1402BA73C9100959823 /* RepositoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */; };
 		DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */; };
@@ -81,9 +90,18 @@
 		DB3ECC662BB050B40080164B /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
 		DB3ECC692BB054190080164B /* MockReposData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReposData.swift; sourceTree = "<group>"; };
 		DB3ECC702BB064BD0080164B /* SearchHistoryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManagerTests.swift; sourceTree = "<group>"; };
-		DB3ECC732BB06D1D0080164B /* GitLangColors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GitLangColors.json; sourceTree = "<group>"; };
 		DB3ECC752BB06D530080164B /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailView.swift; sourceTree = "<group>"; };
+		DB3ECC792BB071AB0080164B /* RepositoryDetailView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepositoryDetailView-ViewModel.swift"; sourceTree = "<group>"; };
+		DB3ECC7D2BB07BDF0080164B /* RepoLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoLanguage.swift; sourceTree = "<group>"; };
+		DB3ECC7F2BB07D890080164B /* GitLangColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitLangColors.swift; sourceTree = "<group>"; };
+		DB3ECC842BB084960080164B /* RepositoryLanguagesChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryLanguagesChartView.swift; sourceTree = "<group>"; };
+		DB3ECC862BB0864B0080164B /* RepositoryLanguagesChartSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryLanguagesChartSkeletonView.swift; sourceTree = "<group>"; };
+		DB3ECC882BB0920D0080164B /* Contributor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contributor.swift; sourceTree = "<group>"; };
+		DB3ECC8C2BB0A5690080164B /* RepositoryContributorsAndReadmeSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContributorsAndReadmeSkeletonView.swift; sourceTree = "<group>"; };
+		DB3ECC8E2BB0A5DA0080164B /* IndexedAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedAvatar.swift; sourceTree = "<group>"; };
+		DB3ECC902BB0A7D30080164B /* RepositoryContributorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContributorRowView.swift; sourceTree = "<group>"; };
+		DB3ECC942BB0AE5A0080164B /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
 		DB8AB13D2BA73C8900959823 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCardView.swift; sourceTree = "<group>"; };
 		DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView-ViewModel.swift"; sourceTree = "<group>"; };
@@ -195,10 +213,23 @@
 		DB3ECC722BB06CC70080164B /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				DB3ECC732BB06D1D0080164B /* GitLangColors.json */,
 				DB3ECC752BB06D530080164B /* ColorExtension.swift */,
+				DB3ECC7F2BB07D890080164B /* GitLangColors.swift */,
 			);
 			path = Misc;
+			sourceTree = "<group>";
+		};
+		DB3ECC812BB084640080164B /* RepositoryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */,
+				DB3ECC842BB084960080164B /* RepositoryLanguagesChartView.swift */,
+				DB3ECC862BB0864B0080164B /* RepositoryLanguagesChartSkeletonView.swift */,
+				DB3ECC8C2BB0A5690080164B /* RepositoryContributorsAndReadmeSkeletonView.swift */,
+				DB3ECC902BB0A7D30080164B /* RepositoryContributorRowView.swift */,
+				DB3ECC942BB0AE5A0080164B /* SFSafariView.swift */,
+			);
+			path = RepositoryDetail;
 			sourceTree = "<group>";
 		};
 		DB8AB13C2BA73C7100959823 /* Profile */ = {
@@ -215,6 +246,9 @@
 		DBDC95D12B80A8DC00ACDB0F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DB3ECC882BB0920D0080164B /* Contributor.swift */,
+				DB3ECC8E2BB0A5DA0080164B /* IndexedAvatar.swift */,
+				DB3ECC7D2BB07BDF0080164B /* RepoLanguage.swift */,
 				DBE75CE52B83DF4400B998E8 /* Repository.swift */,
 				DB3ECC562BB005940080164B /* SearchHistory.swift */,
 				DB3ECC4F2BAEE2A40080164B /* User.swift */,
@@ -228,6 +262,7 @@
 			children = (
 				DBDC95D32B80B74400ACDB0F /* SearchView-ViewModel.swift */,
 				DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */,
+				DB3ECC792BB071AB0080164B /* RepositoryDetailView-ViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -260,7 +295,7 @@
 				DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */,
 				DBE75CE42B8221F600B998E8 /* Search */,
 				DB8AB13C2BA73C7100959823 /* Profile */,
-				DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */,
+				DB3ECC812BB084640080164B /* RepositoryDetail */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,7 +395,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB3ECC742BB06D1D0080164B /* GitLangColors.json in Resources */,
 				DB25BC8B2B73F6C90039A4ED /* Preview Assets.xcassets in Resources */,
 				DB25BC882B73F6C90039A4ED /* Assets.xcassets in Resources */,
 			);
@@ -383,26 +417,36 @@
 				DBDC95D42B80B74400ACDB0F /* SearchView-ViewModel.swift in Sources */,
 				DBDC95D92B80E05A00ACDB0F /* Shimmer.swift in Sources */,
 				DB3ECC612BB0134B0080164B /* SearchHistoryItemView.swift in Sources */,
+				DB3ECC8D2BB0A5690080164B /* RepositoryContributorsAndReadmeSkeletonView.swift in Sources */,
 				DB25BC862B73F6C70039A4ED /* SearchView.swift in Sources */,
+				DB3ECC872BB0864B0080164B /* RepositoryLanguagesChartSkeletonView.swift in Sources */,
 				DB25BC842B73F6C70039A4ED /* New_GitHubApp.swift in Sources */,
 				DB3ECC5F2BB00BDC0080164B /* SearchHistoryManager.swift in Sources */,
+				DB3ECC802BB07D890080164B /* GitLangColors.swift in Sources */,
 				DBEEBB422B763D7700165EDC /* UserSearchResult.swift in Sources */,
+				DB3ECC912BB0A7D30080164B /* RepositoryContributorRowView.swift in Sources */,
 				DB3ECC5B2BB008180080164B /* SearchHistoryView.swift in Sources */,
 				DB3ECC6A2BB054190080164B /* MockReposData.swift in Sources */,
 				DBEEBB3F2B763C1500165EDC /* HTTPDataDownloading.swift in Sources */,
+				DB3ECC7A2BB071AB0080164B /* RepositoryDetailView-ViewModel.swift in Sources */,
 				DBEEBB5D2B7681ED00165EDC /* MockApiService.swift in Sources */,
 				DBEEBB3D2B7639E100165EDC /* CustomApiError.swift in Sources */,
 				DBEEBB5F2B7682A900165EDC /* MockJSONData.swift in Sources */,
+				DB3ECC892BB0920D0080164B /* Contributor.swift in Sources */,
 				DB3ECC502BAEE2A40080164B /* User.swift in Sources */,
 				DBE75CE62B83DF4400B998E8 /* Repository.swift in Sources */,
 				DB8AB1402BA73C9100959823 /* RepositoryCardView.swift in Sources */,
+				DB3ECC852BB084960080164B /* RepositoryLanguagesChartView.swift in Sources */,
 				DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */,
+				DB3ECC952BB0AE5A0080164B /* SFSafariView.swift in Sources */,
 				DB360F952BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift in Sources */,
 				DB3ECC782BB06DAC0080164B /* RepositoryDetailView.swift in Sources */,
 				DB3ECC552BAEE4110080164B /* AvatarLoader.swift in Sources */,
+				DB3ECC8F2BB0A5DA0080164B /* IndexedAvatar.swift in Sources */,
 				DB3ECC762BB06D530080164B /* ColorExtension.swift in Sources */,
 				DB8AB1452BA741D400959823 /* FilterBarView.swift in Sources */,
 				DB25BC942B73F6E10039A4ED /* ApiService.swift in Sources */,
+				DB3ECC7E2BB07BDF0080164B /* RepoLanguage.swift in Sources */,
 				DB3ECC492BAECE700080164B /* MockCacheManager.swift in Sources */,
 				DB3ECC452BAAC8AC0080164B /* CacheManager.swift in Sources */,
 				DBEEBB4A2B76573C00165EDC /* SearchResultItemView.swift in Sources */,

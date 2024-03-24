@@ -14,6 +14,8 @@ protocol ApiServing {
     func fetchImageData(for urlString: String) async throws -> Data
     func fetchUserInfo(for user: String) async throws -> User
     func fetchRepositories(for user: String, pageNumber: Int) async throws -> [Repository]
+    func fetchLanguages(repoName: String) async throws -> [String: Int]
+    func fetchContributors(repoName: String) async throws -> [Contributor]
 }
 
 struct ApiService: HTTPDataDownloading, ApiServing {
@@ -47,6 +49,16 @@ struct ApiService: HTTPDataDownloading, ApiServing {
     public func fetchRepositories(for user: String, pageNumber: Int) async throws -> [Repository] {
         guard let endpoint = repositoryUrl(for: user, page: pageNumber) else { throw CustomApiError.badURL }
         return try await fetchData(as: [Repository].self, from: endpoint)
+    }
+    
+    public func fetchLanguages(repoName: String) async throws -> [String: Int] {
+        guard let endpoint = repositoryLanguagesUrl(name: repoName) else { throw CustomApiError.badURL }
+        return try await fetchData(as: [String:Int].self, from: endpoint)
+    }
+    
+    public func fetchContributors(repoName: String) async throws -> [Contributor] {
+        guard let endpoint = repositoryContributorsUrl(name: repoName) else { throw CustomApiError.badURL }
+        return try await fetchData(as: [Contributor].self, from: endpoint)
     }
 }
 
@@ -92,4 +104,26 @@ extension ApiService {
         
         return components.url?.absoluteString
     }
+    
+    // https://api.github.com/repos/apple/app-store-server-library-java/languages
+    private func repositoryLanguagesUrl(name repoName: String) -> String? {
+        var components = baseUrlComponents
+        components.path += "/repos/\(repoName)/languages"
+        
+        return components.url?.absoluteString
+    }
+    
+    // https://api.github.com/repos/davidmansourian/Camera-App/contributors?page=1&per_page=50
+    private func repositoryContributorsUrl(name repoName: String) -> String? {
+        var components = baseUrlComponents
+        components.path += "/repos/\(repoName)/contributors"
+        
+        components.queryItems = [
+            .init(name: "page", value: "1"),
+            .init(name: "per_page", value: "50")
+        ]
+        
+        return components.url?.absoluteString
+    }
+    
 }
