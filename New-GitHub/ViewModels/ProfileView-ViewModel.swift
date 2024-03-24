@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension ProfileView {
     @Observable
@@ -19,6 +20,7 @@ extension ProfileView {
         private var repoResultsPageNumber = 1
         private var username: String
         
+        private(set) var avatarImages = [String: UIImage]()
         private(set) var loadingTask: Task<Void, Never>?
         private(set) var repoCount = 0
         private(set) var scrollLoading = false
@@ -50,8 +52,20 @@ extension ProfileView {
         }
         
         private func fetchReposAndAvatars() async throws -> [Repository] {
-            let newRepos = try await apiService.fetchRepositories(for: username, pageNumber: repoResultsPageNumber)
-            await avatarLoader.loadAvatarImages(for: newRepos, requestedHeight: repoOwnerAvatarHeight)
+            let newRepos = try await apiService.fetchRepositories(
+                for: username,
+                pageNumber: repoResultsPageNumber
+            )
+            print("fetched newRepos: \(newRepos)")
+            
+            if let loadedAvatars = try? await avatarLoader.loadAvatarImages(
+                for: newRepos,
+                requestedHeight: repoOwnerAvatarHeight,
+                currentAvatars: avatarImages
+            ) {
+                avatarImages = loadedAvatars
+            }
+            
             return newRepos
         }
         

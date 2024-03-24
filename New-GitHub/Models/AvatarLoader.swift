@@ -6,58 +6,66 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
-// Probably no need to implement a protocol for this class since as it is testable?
+// Probably no need to implement a protocol for this class since it is testable as it is?
 
-@Observable
-public final class AvatarLoader {
+struct AvatarLoader {
     private let apiService: ApiServing
-    private var currentView: CurrentView = .none
-    
-    private(set) var images = [String: UIImage]()
-    
     
     init(apiService: ApiServing) {
         self.apiService = apiService
     }
     
-    public func loadAvatarImages(for objects: [Any]?, requestedHeight: CGFloat) async {
-        guard let objects = objects else { return }
-        await withTaskGroup(of: (String, Data).self) { [weak self] taskGroup in
-            guard let self = self else { return }
+    public func loadAvatarImages(
+        for objects: [Any]?,
+        requestedHeight: CGFloat,
+        currentAvatars: [String:UIImage]? = nil
+    ) async throws -> [String: UIImage]  {
+        guard let objects = objects else { throw LoadingError.invalidObjects }
+        
+        var avatarImages: [String:UIImage] = currentAvatars ?? [String:UIImage]()
+        
+        await withTaskGroup(of: (String, Data).self) { taskGroup in
+            
             for object in objects {
-                if let (avatarUrl, username) = determineGenericObjectType(object: object) {
-                    await storeImagesIfNecessary(
+                
+                if let (avatarUrl, username) = determineGenericObjectType(object: object),
+                   !avatarImages.keys.contains(username) {
+                    
+                    let avatarThumbnail = try? await thumbnail(
                         for: username,
                         with: avatarUrl,
-                        currentView: .search,
                         requestedHeight: requestedHeight
                     )
+                    
+                    avatarImages[username] = avatarThumbnail
                 }
             }
         }
+        
+        return avatarImages
     }
     
-    @MainActor
-    private func storeImagesIfNecessary(for username: String,
-                                        with imageUrl: String,
-                                        currentView: CurrentView,
-                                        requestedHeight: CGFloat)
-    async {
-        resetImageDatasIfNecessary(currentView)
-        
-        if !self.images.keys.contains(username) {
-            do {
-                let imageData = try await self.apiService.fetchImageData(for: imageUrl)
-                let thumbnail = getThumbnailFrom(imageData: imageData, withHeight: requestedHeight)
-                self.images[username] = thumbnail
-            } catch {
-                print("DEBUG: error when fetching image for \(username)")
-                print(error)
+    private func thumbnail(for username: String,
+                           with imageUrl: String,
+                           requestedHeight: CGFloat)
+    async throws -> UIImage {
+        do {
+            let imageData = try await self.apiService.fetchImageData(for: imageUrl)
+            
+            guard let thumbnail = getThumbnailFrom(
+                imageData: imageData,
+                withHeight: requestedHeight
+            ) else {
+                throw LoadingError.thumbnailError(
+                    "Error creating thumbnail"
+                )
             }
-        } else {
-            // print("imageDatas already contains key-value pair of \(username). Skipping operation.")
+            
+            return thumbnail
+        } catch {
+            throw LoadingError.thumbnailError(error.localizedDescription)
         }
     }
     
@@ -70,15 +78,7 @@ public final class AvatarLoader {
         
         return nil
     }
-    
-    @MainActor
-    private func resetImageDatasIfNecessary(_ newCurrentView: CurrentView) {
-        if newCurrentView != currentView {
-            images = [:]
-            self.currentView = newCurrentView
-        }
-    }
-    
+        
     private func getThumbnailFrom(imageData: Data, withHeight height: CGFloat) -> UIImage? {
         let image = UIImage(data: imageData)
         guard let thumbnail = image?.aspectFittedToHeight(height) else { return nil }
@@ -88,8 +88,17 @@ public final class AvatarLoader {
 }
 
 extension AvatarLoader {
-    public enum CurrentView {
-        case none, search, profile
+    public enum LoadingError: LocalizedError {
+        case invalidObjects, thumbnailError(String)
+        
+        public var errorDescription: String? {
+            switch self {
+            case .invalidObjects:
+                return "Invalid objects, couldn't continue"
+            case .thumbnailError(let error):
+                return "Couldn't get thumbnail: \(error)"
+            }
+        }
     }
 }
 
