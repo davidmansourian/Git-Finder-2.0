@@ -30,6 +30,7 @@
 		DB3ECC712BB064BD0080164B /* SearchHistoryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC702BB064BD0080164B /* SearchHistoryManagerTests.swift */; };
 		DB3ECC742BB06D1D0080164B /* GitLangColors.json in Resources */ = {isa = PBXBuildFile; fileRef = DB3ECC732BB06D1D0080164B /* GitLangColors.json */; };
 		DB3ECC762BB06D530080164B /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC752BB06D530080164B /* ColorExtension.swift */; };
+		DB3ECC782BB06DAC0080164B /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */; };
 		DB8AB13E2BA73C8900959823 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13D2BA73C8900959823 /* ProfileView.swift */; };
 		DB8AB1402BA73C9100959823 /* RepositoryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */; };
 		DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */; };
@@ -82,6 +83,7 @@
 		DB3ECC702BB064BD0080164B /* SearchHistoryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManagerTests.swift; sourceTree = "<group>"; };
 		DB3ECC732BB06D1D0080164B /* GitLangColors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GitLangColors.json; sourceTree = "<group>"; };
 		DB3ECC752BB06D530080164B /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailView.swift; sourceTree = "<group>"; };
 		DB8AB13D2BA73C8900959823 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DB8AB13F2BA73C9100959823 /* RepositoryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCardView.swift; sourceTree = "<group>"; };
 		DB8AB1412BA73E3C00959823 /* ProfileView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView-ViewModel.swift"; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				DBDC95D82B80E05A00ACDB0F /* Shimmer.swift */,
 				DBE75CE42B8221F600B998E8 /* Search */,
 				DB8AB13C2BA73C7100959823 /* Profile */,
+				DB3ECC772BB06DAC0080164B /* RepositoryDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				DB8AB1402BA73C9100959823 /* RepositoryCardView.swift in Sources */,
 				DB8AB1422BA73E3C00959823 /* ProfileView-ViewModel.swift in Sources */,
 				DB360F952BA9FCA1001E5C2C /* RepositoryCardSkeletonView.swift in Sources */,
+				DB3ECC782BB06DAC0080164B /* RepositoryDetailView.swift in Sources */,
 				DB3ECC552BAEE4110080164B /* AvatarLoader.swift in Sources */,
 				DB3ECC762BB06D530080164B /* ColorExtension.swift in Sources */,
 				DB8AB1452BA741D400959823 /* FilterBarView.swift in Sources */,
