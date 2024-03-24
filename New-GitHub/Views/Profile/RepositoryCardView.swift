@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct RepositoryCardView: View {
-    let repository: Repository
     let image: UIImage?
-    
-    init(repository: Repository, image: UIImage?) {
-        self.repository = repository
-        self.image = image
-    }
-    
+    let mainProfileUsername: String
+    let repository: Repository
+        
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -52,6 +48,15 @@ struct RepositoryCardView: View {
             .font(.caption)
             .fontWeight(.ultraLight)
             .padding(.top, 10)
+            
+            if repository.owner.username != mainProfileUsername {
+                Text("\(mainProfileUsername) is a contributor")
+                    .foregroundColor(.blue)
+                    .font(.caption2)
+                    .fontWeight(.light)
+                    .padding(.top, 5)
+            }
+            
         }
     }
 }
@@ -85,5 +90,5 @@ private extension RepositoryCardView {
     let mockImage = UIImage(named: "testAvatar")
     let fakeRepoOwner = Repository.Owner(username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4")
     let fakeRepository = Repository(name: "Pelle's Project", owner: fakeRepoOwner, description: "I am Pelle. This is my project, and I am very proud of it.", starGazersCount: 12, watchersCount: 33, forksCount: 25, lastUpdated: "2023-09-05T22:41:23Z")
-    return RepositoryCardView(repository: fakeRepository, image: mockImage)
+    return RepositoryCardView(image: mockImage, mainProfileUsername: "Palle", repository: fakeRepository)
 }

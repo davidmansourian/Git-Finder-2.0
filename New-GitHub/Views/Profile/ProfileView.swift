@@ -87,8 +87,9 @@ private extension ProfileView {
     func reposList(_ repos: [Repository]) -> some View {
         List(repos, id: \.self) { repo in
             Button(action: { showRepositoryDetail.toggle() }, label: {
-                RepositoryCardView(repository: repo,
-                                   image: repoOwnerImage(repo.owner.username)
+                RepositoryCardView(image: repoOwnerImage(repo.owner.username),
+                                   mainProfileUsername: username,
+                                   repository: repo
                 )
             })
             .buttonStyle(.plain)

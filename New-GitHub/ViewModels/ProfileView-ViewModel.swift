@@ -51,12 +51,12 @@ extension ProfileView {
             }
         }
         
+        @MainActor
         private func fetchReposAndAvatars() async throws -> [Repository] {
             let newRepos = try await apiService.fetchRepositories(
                 for: username,
                 pageNumber: repoResultsPageNumber
             )
-            print("fetched newRepos: \(newRepos)")
             
             if let loadedAvatars = try? await avatarLoader.loadAvatarImages(
                 for: newRepos,
