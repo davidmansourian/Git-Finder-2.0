@@ -41,12 +41,7 @@ struct SearchView: View {
             case .loading:
                 loadingList
             case .loaded(let users):
-                SearchResultsView(
-                    apiService: apiService,
-                    avatarLoader: avatarLoader,
-                    searchHistoryManager: searchHistoryManager,
-                    users: users
-                )
+                searchResultsView(users)
             case .error(let error):
                 errorView(error)
             }
@@ -68,27 +63,34 @@ extension SearchView {
         }
     }
     
-    private func usersList(_ users: [User]) -> some View {
-        List(users, id: \.username) { user in
-            NavigationLink(value: user) {
-                SearchResultItemView(username: user.username,
-                                     userType: user.type,
-                                     image: avatarLoader.images[user.username]
-                )
+    private func searchResultsView(_ users: [User]) -> some View {
+        Group {
+            if !users.isEmpty {
+                List(users, id: \.username) { user in
+                    NavigationLink(value: user) {
+                        SearchResultItemView(username: user.username,
+                                             userType: user.type,
+                                             image: viewModel.avatarImages[user.username]
+                        )
+                    }
+                    .listRowSeparator(.hidden)
+                }
+                .listStyle(.plain)
+                .navigationDestination(for: User.self) { user in
+                    let _ = Task {
+                        await searchHistoryManager.addSearchHistoryInstance(
+                            user.username,
+                            avatarData: viewModel.avatarImages[user.username]?.jpegData(
+                                compressionQuality: 0.9
+                            )
+                        )
+                    }
+                    
+                    ProfileView(apiService: apiService, avatarLoader: avatarLoader, username: user.username)
+                }
+            } else {
+                ContentUnavailableView("Couldn't find user", systemImage: "exclamationmark.magnifyingglass", description: Text("Try refining your search"))
             }
-            .listRowSeparator(.hidden)
-        }
-        .listStyle(.plain)
-        .navigationDestination(for: User.self) { user in
-            let _ = Task {
-                await searchHistoryManager.addSearchHistoryInstance(
-                    user.username,
-                    avatarData: avatarLoader.images[user.username]?.jpegData(
-                        compressionQuality: 0.9
-                    )
-                )
-            }
-            ProfileView(apiService: apiService, avatarLoader: avatarLoader, username: user.username)
         }
     }
     
@@ -124,8 +126,7 @@ extension SearchView {
     
     let cacheManager = MockCacheManager()
     let apiService = MockApiService(cacheManager: cacheManager)
-    
-    @State var avatarLoader = AvatarLoader(apiService: apiService)
+    let avatarLoader = AvatarLoader(apiService: apiService)
     
     return SearchView(apiService: apiService, avatarLoader: avatarLoader, modelContext: container.mainContext)
 }

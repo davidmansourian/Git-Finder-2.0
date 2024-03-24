@@ -70,8 +70,8 @@ struct SearchHistoryView: View {
     
     let cacheManager = MockCacheManager()
     let apiService = MockApiService(cacheManager: cacheManager)
+    let avatarLoader = AvatarLoader(apiService: apiService)
     
-    @State var avatarLoader = AvatarLoader(apiService: apiService)
     @State var searchHistoryManager = SearchHistoryManager(modelContext: container.mainContext)
     
     return SearchHistoryView(apiService: apiService, avatarLoader: avatarLoader, searchHistoryManager: searchHistoryManager)

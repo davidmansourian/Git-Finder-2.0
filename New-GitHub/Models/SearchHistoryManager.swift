@@ -12,7 +12,8 @@ import SwiftUI
 @Observable
 public final class SearchHistoryManager {
     private var modelContext: ModelContext
-    var searchHistory = [SearchHistory]()
+    
+    private(set) var searchHistory = [SearchHistory]()
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext

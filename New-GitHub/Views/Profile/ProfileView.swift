@@ -105,7 +105,7 @@ private extension ProfileView {
     }
     
     func repoOwnerImage(_ username: String) -> UIImage? {
-        avatarLoader.images[username]
+        viewModel.avatarImages[username]
     }
     
     var toolbarSortMenuView: some View {

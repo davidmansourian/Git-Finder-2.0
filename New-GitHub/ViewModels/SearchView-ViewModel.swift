@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension SearchView {
     @Observable
@@ -14,6 +15,7 @@ extension SearchView {
         private let avatarLoader: AvatarLoader
         private let profileAvatarHeight: CGFloat = 32
         
+        private(set) var avatarImages = [String:UIImage]()
         private(set) var searchTask: Task<[User]?, Error>?
         private(set) var state: State = .idle
         
@@ -41,10 +43,12 @@ extension SearchView {
             await performSearch(for: searchTerm)
             
             let users = try? await searchTask?.value
-            await avatarLoader.loadAvatarImages(for: users, requestedHeight: 32)
+            
+            await loadAvatarImages(for: users)
+            
             await updateUserResults(users)
         }
-                
+        
         private func performSearch(for searchTerm: String) async {
             let task = Task(priority: .userInitiated) { [weak self] in
                 try await Task.sleep(for: .seconds(0.4))
@@ -59,7 +63,7 @@ extension SearchView {
                     if self?.wasTaskCancelled(error) == false {
                         self?.searchError = error.localizedDescription
                     } else {
-                        print("Task was cancelled due to updated searchterm. Hiding error from user.")
+                        // print("Task was cancelled due to updated searchterm. Hiding error from user.")
                     }
                     
                     return nil
@@ -72,7 +76,17 @@ extension SearchView {
         private func wasTaskCancelled(_ error: Error) -> Bool {
             error.localizedDescription == CustomApiError.unknownError("cancelled").localizedDescription || error.localizedDescription == "cancelled"
         }
-
+        
+        private func loadAvatarImages(for users: [User]?) async {
+            guard let users = users else { return }
+            if let loadedAvatars = try? await avatarLoader.loadAvatarImages(
+                for: users,
+                requestedHeight: 32
+            ) {
+                avatarImages = loadedAvatars
+            }
+        }
+        
         @MainActor
         private func updateUserResults(_ userResults: [User]?) async {
             if let users = userResults {
