@@ -1,6 +1,6 @@
 This is an improved version of [this Git Finder](https://github.com/davidmansourian/CodingTestHedvig) that I wrote as a coding test. The two apps were written approximately one year apart.
 
-There is significant improvement in this version of the application:
+Although the UI is similar, there is significant improvement in this version of the application:
 - Cleaner business logic
 - Cleaner file structure
 - Better separation of concerns
