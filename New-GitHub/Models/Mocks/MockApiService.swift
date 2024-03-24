@@ -51,4 +51,14 @@ class MockApiService: ApiServing {
         // Using to see shimmer in preview
         //try await Task.sleep(nanoseconds: 3_000_000_000)
     }
+    
+    func fetchLanguages(repoName: String) async throws -> [String : Int] {
+        return ["Swift":100]
+    }
+    
+    func fetchContributors(repoName: String) async throws -> [Contributor] {
+        let contributor = Contributor(username: "Test", avatarUrl: "test", contributions: 1)
+        
+        return [contributor]
+    }
 }

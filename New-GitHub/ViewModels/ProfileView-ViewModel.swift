@@ -47,6 +47,7 @@ extension ProfileView {
                     await setUserResultsWithFilterAndSort(.all, .originalOrder)
                 } catch {
                     self.loadingError = error.localizedDescription
+                    await updateUserState()
                 }
             }
         }
@@ -135,7 +136,7 @@ extension ProfileView {
         }
         
         @MainActor
-        private func updateUserState(_ repositories: [Repository]?) async {
+        private func updateUserState(_ repositories: [Repository]? = nil) async {
             if let repos = repositories {
                 self.repoCount = repos.count
                 self.state = .loaded(repos)

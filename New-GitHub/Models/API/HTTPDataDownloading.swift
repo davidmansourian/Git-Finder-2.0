@@ -39,7 +39,7 @@ extension HTTPDataDownloading {
     }
     
     private func validateData<T: Decodable>(for type: T.Type, from data: Data) throws -> T? {
-        if type == UserSearchResult.self || type == User.self || type == [Repository].self {
+        if type == UserSearchResult.self || type == User.self || type == [Repository].self || type == [String:Int].self || type == [Contributor].self {
             do {
                 return try JSONDecoder().decode(type, from: data)
             } catch {
