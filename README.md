@@ -1,7 +1,14 @@
 This is an improved version of [this Git Finder](https://github.com/davidmansourian/CodingTestHedvig) that I wrote as a coding test. The two apps were written approximately one year apart.
 
-There is significant improvement in the business logic of this improved version of the application. The file structure is much cleaner and the separation of concerns is better.
-This version incorporates the latest frameworks such as "@Observable" and "@Model" announced during WWDC 23. Unit tests has been written for majority of objects.
+There is significant improvement in this version of the application:
+- Cleaner business logic
+- Cleaner file structure
+- Better separation of concerns
+- More thought into interactions between different components
+- Caching
+- Unit tests covering majority of app (See issues for what is left to do).
+
+This version also incorporates the latest frameworks such as "@Observable" and "@Model" announced during WWDC 23.
 
 Preview:
 
