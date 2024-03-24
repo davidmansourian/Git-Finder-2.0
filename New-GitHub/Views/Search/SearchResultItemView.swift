@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileResultItemView: View {
+struct SearchResultItemView: View {
     let username: String
     let userType: String
     let image: UIImage?
@@ -28,7 +28,7 @@ struct ProfileResultItemView: View {
     }
 }
 
-extension ProfileResultItemView {
+extension SearchResultItemView {
     var avatarImage: some View {
         if let avatarUiImage = image {
             let image = Image(uiImage: avatarUiImage)
@@ -49,5 +49,5 @@ extension ProfileResultItemView {
 #Preview {
     let testAvatar = UIImage(named: "testAvatar")
     let fakeUser = User(id: 1, username: "Pelle", avatarUrl: "https://avatars.githubusercontent.com/u/112928485?v=4", url: "https://api.github.com/users/davidmansourian", reposUrl: "", type: "User")
-    return ProfileResultItemView(username: fakeUser.username, userType: fakeUser.type, image: testAvatar)
+    return SearchResultItemView(username: fakeUser.username, userType: fakeUser.type, image: testAvatar)
 }

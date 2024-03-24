@@ -68,7 +68,7 @@ extension ProfileView {
                     self.repositories?.append(contentsOf: newRepos)
                     await setUserResultsWithFilterAndSort(filterState, sortState)
                 } catch {
-                    //                    print("Error scrolling repositories: \(error.localizedDescription)")
+                    //print("Error scrolling repositories: \(error.localizedDescription)")
                 }
                 scrollLoading = false
             }
