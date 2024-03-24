@@ -1,5 +1,5 @@
 //
-//  LoadingResultItemView.swift
+//  SearchResultItemSkeletonView.swift
 //  New-GitHub
 //
 //  Created by David Mansourian on 2024-02-17.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileResultItemSkeletonView: View {
+struct SearchResultItemSkeletonView: View {
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         HStack {
@@ -35,5 +35,5 @@ struct ProfileResultItemSkeletonView: View {
 }
 
 #Preview {
-    ProfileResultItemSkeletonView()
+    SearchResultItemSkeletonView()
 }

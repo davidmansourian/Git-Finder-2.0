@@ -10,7 +10,6 @@ import SwiftUI
 struct ProfileView: View {
     @State private var filterState: FilterState = .all
     @State private var sortState: SortState = .originalOrder
-    @State private var repoCount = 0
     @State private var showRepositoryDetail = false
     @State private var viewModel: ViewModel
     
