@@ -8,6 +8,8 @@ There is significant improvement in this version of the application:
 - Caching
 - Unit tests covering majority of app (See issues for what is left to do).
 
+The architechture is much better than the previous version, which is to be expected.
+
 This version also incorporates the latest frameworks such as "@Observable" and "@Model" announced during WWDC 23.
 
 Preview:
